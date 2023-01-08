@@ -1,0 +1,9 @@
+# Ignore artifacts:
+build
+node_modules
+.next
+.idea
+package-lock.json
+*.yaml
+*.md
+public

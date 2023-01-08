@@ -1,0 +1,43 @@
+{
+    "name": "betpool-2022",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "prettier:write": "prettier --write .",
+        "prettier:check": "prettier --check .",
+        "lint": "next lint",
+        "lint:fix": "next lint --fix",
+        "format": "npm run prettier:write && npm run lint:fix"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.4",
+        "@emotion/styled": "^11.10.4",
+        "@mui/icons-material": "^5.10.9",
+        "@mui/lab": "^5.0.0-alpha.105",
+        "@mui/material": "^5.10.9",
+        "@mui/styles": "^5.10.10",
+        "@next/env": "^12.3.1",
+        "array-shuffle": "^3.0.0",
+        "dayjs": "^1.11.6",
+        "firebase": "^8.10.0",
+        "next": "12.3.1",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-firebase-hooks": "^3.0.4",
+        "react-firebaseui": "^5.0.2",
+        "react-query": "^3.39.2"
+    },
+    "devDependencies": {
+        "@types/node": "18.11.0",
+        "@types/react": "17.0.2",
+        "@types/react-dom": "17.0.2",
+        "eslint": "8.25.0",
+        "eslint-config-next": "12.3.1",
+        "eslint-plugin-unused-imports": "^2.0.0",
+        "prettier": "^2.7.1",
+        "typescript": "4.8.4"
+    }
+}
