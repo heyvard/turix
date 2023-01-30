@@ -19,7 +19,7 @@
         "@mui/lab": "^5.0.0-alpha.105",
         "@mui/material": "^5.10.9",
         "@mui/styles": "^5.10.10",
-        "@next/env": "^12.3.1",
+        "@next/env": "^13.1.6",
         "array-shuffle": "^3.0.0",
         "dayjs": "^1.11.6",
         "firebase": "^8.10.0",
