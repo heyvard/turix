@@ -17,6 +17,7 @@ export function UseUser() {
         return Promise.resolve({
             id: 'sdfdsf',
             name: user?.displayName || 'laster',
+            admin: true,
         })
     })
 }
