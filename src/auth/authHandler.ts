@@ -10,6 +10,7 @@ let pool: null | Pool
 
 export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
     return async (req: VercelRequest, res: VercelResponse) => {
+        console.log("Auth starter")
         try {
             if (!pool) {
                 const connectionString = process.env.PG_URI
