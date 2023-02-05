@@ -7,17 +7,11 @@ export function UseUser() {
     const [user] = useAuthState(firebase.auth())
 
     return useQuery<User, Error>('user-me', async () => {
-        /*
         const idtoken = await user?.getIdToken()
-        let responsePromise = await fetch('https://betpool-2022-backend.vercel.app/api/v1/me', {
+        let responsePromise = await fetch('/api/v1/me', {
             method: 'GET',
             headers: { Authorization: `Bearer ${idtoken}` },
         })
-        return responsePromise.json()*/
-        return Promise.resolve({
-            id: 'sdfdsf',
-            name: user?.displayName || 'laster',
-            admin: true,
-        })
+        return responsePromise.json()
     })
 }
