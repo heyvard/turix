@@ -4,7 +4,6 @@ import { ApiHandlerOpts } from '../../../types/apiHandlerOpts'
 const handler = async function handler(opts: ApiHandlerOpts): Promise<void> {
     const { res, user, jwtPayload, client } = opts
     if (user) {
-        console.log('user', user)
         res.status(200).json(user)
         return
     }
