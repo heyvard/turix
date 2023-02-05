@@ -1,3 +1,4 @@
 export default function handler(req, res) {
-    return res.status(200).json({ name: 'John Doe' })
+    console.log('Kallet')
+    return res.send({ name: 'John Doe' })
 }
