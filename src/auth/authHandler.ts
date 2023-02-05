@@ -1,4 +1,4 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
+import { NextApiRequest, NextApiResponse } from 'next'
 import { Pool, PoolClient } from 'pg'
 
 import { User } from '../types/db'
@@ -9,7 +9,7 @@ import { verifiserIdToken } from './verifiserIdToken'
 let pool: null | Pool
 
 export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
-    return async (req: VercelRequest, res: VercelResponse) => {
+    return async (req: NextApiRequest, res: NextApiResponse) => {
         console.log('Auth starter')
         try {
             if (!pool) {

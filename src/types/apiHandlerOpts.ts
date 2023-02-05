@@ -1,12 +1,12 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
 import { JWTPayload } from 'jose'
 import { PoolClient } from 'pg'
 
 import { User } from './db'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export interface ApiHandlerOpts {
-    req: VercelRequest
-    res: VercelResponse
+    req: NextApiRequest
+    res: NextApiResponse
     jwtPayload: JWTPayload
     client: PoolClient
     user?: User

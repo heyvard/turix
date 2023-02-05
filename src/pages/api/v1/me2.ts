@@ -1,6 +1,6 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-const handler = async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
+const handler = async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
     res.status(200).json({ hei: 1234 })
 }
 

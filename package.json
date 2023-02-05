@@ -20,7 +20,6 @@
         "@mui/lab": "^5.0.0-alpha.118",
         "@mui/material": "^5.11.7",
         "@next/env": "^13.1.6",
-        "@vercel/node": "^2.9.0",
         "array-shuffle": "^3.0.0",
         "dayjs": "^1.11.7",
         "firebase": "^8.10.0",
