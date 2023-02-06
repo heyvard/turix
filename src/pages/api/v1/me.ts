@@ -4,9 +4,11 @@ import { ApiHandlerOpts } from '../../../types/apiHandlerOpts'
 const handler = async function handler(opts: ApiHandlerOpts): Promise<void> {
     const { res, user, jwtPayload, client } = opts
     if (user) {
+        console.log('Har user')
         res.status(200).json(user)
         return
     }
+    console.log('Ny user')
 
     const nyBruker = await client.query(
         `

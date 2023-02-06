@@ -6,4 +6,5 @@ export interface User {
     admin: boolean
     active: boolean
     id: string
+    access_token?: string
 }
