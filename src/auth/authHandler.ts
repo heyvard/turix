@@ -8,18 +8,21 @@ import { verifiserIdToken } from './verifiserIdToken'
 
 let pool: null | Pool
 
+export function getPool() {
+    if (!pool) {
+        const connectionString = process.env.PG_URI
+        pool = new Pool({
+            connectionString,
+            max: 1,
+        })
+    }
+    return pool
+}
+
 export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
     return async (req: NextApiRequest, res: NextApiResponse) => {
         console.log('Auth starter')
         try {
-            if (!pool) {
-                const connectionString = process.env.PG_URI
-                pool = new Pool({
-                    connectionString,
-                    max: 1,
-                })
-            }
-
             const start = Date.now()
             const authheader = req.headers.authorization
             if (!authheader) {
@@ -35,7 +38,7 @@ export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
             const verifsert = Date.now()
             let client: PoolClient | null = null
             try {
-                client = await pool.connect()
+                client = await getPool().connect()
 
                 const dbkobling = Date.now()
 
