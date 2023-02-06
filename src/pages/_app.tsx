@@ -3,21 +3,16 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import firebase from '../auth/clientApp'
 import { SignInScreen } from '../components/SignIn'
 import LogoutIcon from '@mui/icons-material/Logout'
-import MenuOpenIcon from '@mui/icons-material/MenuOpen'
-import MenuIcon from '@mui/icons-material/Menu'
 import HomeIcon from '@mui/icons-material/Home'
 import { BottomNavigation, BottomNavigationAction, Box, CircularProgress, Menu, MenuItem, Paper } from '@mui/material'
 import React, { SyntheticEvent, useState } from 'react'
-import { EmojiEvents, Chat, Person } from '@mui/icons-material'
+import { Person } from '@mui/icons-material'
 import { Theme } from '../components/theme/Theme'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { UseUser } from '../queries/useUser'
 import { useRouter } from 'next/router'
 import { Spinner } from '../components/loading/Spinner'
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
-import GavelIcon from '@mui/icons-material/Gavel'
 import Head from 'next/head'
-import EditIcon from '@mui/icons-material/Edit'
 
 function UserFetchInnlogging(props: { children: React.ReactNode }) {
     const { data: me, isLoading } = UseUser()
@@ -53,10 +48,6 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
                     }}
                 >
                     <BottomNavigationAction value="/" icon={<HomeIcon />} />
-                    <BottomNavigationAction label="Bets" value="/my-bets" icon={<SportsSoccerIcon />} />
-                    <BottomNavigationAction label="Resultater" value="/leaderboard" icon={<EmojiEvents />} />
-                    <BottomNavigationAction label="Regler" value="/rules" icon={<GavelIcon />} />
-                    <BottomNavigationAction value="meny" icon={anchorEl != null ? <MenuOpenIcon /> : <MenuIcon />} />
 
                     <Menu
                         id="menu-appbar"
@@ -82,47 +73,6 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
                             <Person />
                             {user.displayName}
                         </MenuItem>
-
-                        <MenuItem
-                            onClick={() => {
-                                handleClose()
-                                router.push('/rules')
-                            }}
-                        >
-                            <GavelIcon />
-                            Regler
-                        </MenuItem>
-                        <MenuItem
-                            onClick={() => {
-                                handleClose()
-                                router.push('/chat')
-                            }}
-                        >
-                            <Chat />
-                            Chat
-                        </MenuItem>
-                        {me.admin && (
-                            <MenuItem
-                                onClick={() => {
-                                    handleClose()
-                                    router.push('/resultatservice')
-                                }}
-                            >
-                                <EditIcon />
-                                Rediger resultater
-                            </MenuItem>
-                        )}
-                        {me.admin && (
-                            <MenuItem
-                                onClick={() => {
-                                    handleClose()
-                                    router.push('/sluttspill')
-                                }}
-                            >
-                                <EditIcon />
-                                Rediger sluttspill
-                            </MenuItem>
-                        )}
                         <MenuItem
                             onClick={async () => {
                                 await firebase.auth().signOut()
@@ -178,7 +128,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Betpool 2022</title>
+                <title>Langrennstats</title>
             </Head>
             <Theme>
                 <QueryClientProvider client={queryClient}>
