@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import fetch from 'node-fetch'
 import { getPool } from '../../../auth/authHandler'
-import { syncAllActivities } from '../../../sync/syncAllActivities'
 
 const handler = async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
     let url = `https://www.strava.com/oauth/token?client_id=${process.env.NEXT_PUBLIC_STRAVA_CLIENT_ID}&code=${req.query.code}&grant_type=authorization_code&client_secret=${process.env.STRAVA_CLIENT_SECRET}`
@@ -27,12 +26,6 @@ const handler = async function handler(req: NextApiRequest, res: NextApiResponse
     )
     await client.release()
     res.redirect('/')
-
-    setTimeout(() => {
-        syncAllActivities(userId, access_token)
-            .then(() => console.log('Ferdig med syncing for ' + userId))
-            .catch((e) => console.log('ooops i sync', e))
-    }, 10000)
 }
 
 export default handler

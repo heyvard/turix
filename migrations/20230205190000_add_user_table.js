@@ -12,6 +12,8 @@ exports.up = async (knex) => {
         t.string('access_token').nullable()
         t.string('refresh_token').nullable()
         t.integer('expires_at').nullable()
+        t.integer('page').nullable()
+        t.boolean('done').nullable()
         t.timestamps(false, true)
     })
 }
