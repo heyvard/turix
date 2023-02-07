@@ -39,9 +39,14 @@ export const Syncing = () => {
 
     return (
         <>
-            <span>Syncet {activities?.length || 0} aktiviteter</span>
+            <br />
+            <span>La denne fanen stå oppe til alt er syncet inn </span>
+            <br />
 
+            <span>Syncet {activities?.length || 0} aktiviteter</span>
+            <br />
             <span>{JSON.stringify(syncresponse)}</span>
+            <br />
         </>
     )
 }

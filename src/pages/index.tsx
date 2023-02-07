@@ -43,9 +43,9 @@ const Home: NextPage = () => {
                 {!megselv.athlete_id && <a href={href}>Koble til strava</a>}
                 <br />
 
-                {'antall: ' + antall}
+                {'antall skiturer i 22/23: ' + antall}
                 <br />
-                {'distance: ' + sum}
+                {'distanse i 22/23: ' + sum.toFixed(2)}
             </Container>
         </>
     )
