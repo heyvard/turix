@@ -6,8 +6,8 @@ import { Spinner } from '../components/loading/Spinner'
 import { Typography } from '@mui/material'
 import React from 'react'
 import { UseActivities } from '../queries/useActivities'
-import dayjs from 'dayjs'
 import { Syncing } from '../components/syncing'
+import { Langrennsaar } from '../components/langrennsaar'
 
 const Home: NextPage = () => {
     const { data: megselv } = UseUser()
@@ -16,18 +16,6 @@ const Home: NextPage = () => {
     if (!megselv || !activities) {
         return <Spinner></Spinner>
     }
-    const medDato = activities
-        .map((a) => ({
-            ...a,
-            dato: dayjs(a.start_date),
-        }))
-        .filter((a) => a.dato.isAfter(dayjs('2022-10-01')))
-        .filter((a) => a.type1.includes('Ski'))
-
-    let sum = 0
-    medDato.forEach((a) => (sum = sum + a.distance))
-
-    const antall = medDato.length
 
     let cbUrl = window.location.href + 'api/v1/authcb'
     let clientId = process.env.NEXT_PUBLIC_STRAVA_CLIENT_ID
@@ -43,9 +31,7 @@ const Home: NextPage = () => {
                 {!megselv.athlete_id && <a href={href}>Koble til strava</a>}
                 <br />
 
-                {'antall skiturer i 22/23: ' + antall}
-                <br />
-                {'distanse i 22/23: ' + sum.toFixed(2)}
+                <Langrennsaar />
             </Container>
         </>
     )
