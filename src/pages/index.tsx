@@ -21,7 +21,7 @@ const Home: NextPage = () => {
             ...a,
             dato: dayjs(a.start_date),
         }))
-        .filter((a) => a.dato.isAfter(dayjs('10-01-2022')))
+        .filter((a) => a.dato.isAfter(dayjs('2022-10-01')))
         .filter((a) => a.type1.includes('Ski'))
 
     let sum = 0
@@ -43,7 +43,6 @@ const Home: NextPage = () => {
                 {!megselv.athlete_id && <a href={href}>Koble til strava</a>}
                 <br />
 
-                {'antall aktiviteter hentet: ' + activities.length}
                 {'antall skiturer i 22/23: ' + antall}
                 <br />
                 {'distanse i 22/23: ' + sum.toFixed(2)}
