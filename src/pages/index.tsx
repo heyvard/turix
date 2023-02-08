@@ -43,6 +43,7 @@ const Home: NextPage = () => {
                 {!megselv.athlete_id && <a href={href}>Koble til strava</a>}
                 <br />
 
+                {'antall aktiviteter hentet: ' + activities.length}
                 {'antall skiturer i 22/23: ' + antall}
                 <br />
                 {'distanse i 22/23: ' + sum.toFixed(2)}
