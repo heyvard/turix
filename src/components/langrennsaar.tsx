@@ -2,16 +2,7 @@ import React from 'react'
 import { UseActivities } from '../queries/useActivities'
 import dayjs from 'dayjs'
 import { Container } from '@mui/material'
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Typography,
-} from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 export const Langrennsaar = () => {
     const { data: activities } = UseActivities()
 
