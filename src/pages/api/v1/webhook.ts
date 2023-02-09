@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { getPool } from '../../../auth/authHandler'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
     if (req.method == 'GET') {
@@ -11,6 +12,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(404).send('Feil metode')
         return
     }
-
+    const client = await getPool().connect()
+    await client.query(
+        `
+            INSERT INTO webhook (body, headers)
+            VALUES ($1, $2)`,
+        [req.body, JSON.stringify(req.headers)],
+    )
+    client.release()
     res.status(200).json({})
 }

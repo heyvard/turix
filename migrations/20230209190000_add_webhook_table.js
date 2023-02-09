@@ -1,9 +1,10 @@
 'use strict'
 
 exports.up = async (knex) => {
-    await knex.schema.createTable('activities', (t) => {
+    await knex.schema.createTable('webhook', (t) => {
         t.uuid('id').default(knex.raw('uuid_generate_v4()')).primary()
-        t.text('raw_json').notNullable()
+        t.text('body').notNullable()
+        t.text('headers').notNullable()
         t.timestamps(false, true)
     })
 }
