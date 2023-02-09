@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         `
             INSERT INTO webhook (body, headers)
             VALUES ($1, $2)`,
-        [req.body, JSON.stringify(req.headers)],
+        [req.body, JSON.stringify(req.query)],
     )
     client.release()
     res.status(200).json({})
