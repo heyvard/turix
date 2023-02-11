@@ -23,17 +23,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(404).send('Feil metode')
         return
     }
+    console.log('webhook request' + req.body)
+    const client = await getPool().connect()
+
+    await client.query(
+        `
+            INSERT INTO webhook (body, headers)
+            VALUES ($1, $2)`,
+        [req.body, JSON.stringify(req.query)],
+    )
     const body = JSON.parse(req.body) as WebookRequest
     if (body.object_type == 'activity') {
-        const client = await getPool().connect()
-
-        await client.query(
-            `
-                INSERT INTO webhook (body, headers)
-                VALUES ($1, $2)`,
-            [req.body, JSON.stringify(req.query)],
-        )
-
         if (body.aspect_type == 'update' || body.aspect_type == 'delete') {
             await client.query(
                 `
@@ -52,8 +52,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             })
             await lagreActivity(client, user, activity)
         }
-
-        client.release()
     }
+    client.release()
+
     res.status(200).json({})
 }
