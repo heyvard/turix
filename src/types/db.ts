@@ -7,6 +7,8 @@ export interface User {
     active: boolean
     id: string
     access_token?: string
+    refresh_token?: string
+    expires_at?: number
     athlete_id: string
     page?: string
     done?: boolean

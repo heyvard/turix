@@ -21,7 +21,6 @@ export function getPool() {
 
 export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
     return async (req: NextApiRequest, res: NextApiResponse) => {
-        console.log('Auth starter')
         try {
             const start = Date.now()
             const authheader = req.headers.authorization

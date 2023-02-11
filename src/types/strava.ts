@@ -62,3 +62,10 @@ export interface Map {
     summary_polyline: string
     resource_state: number
 }
+
+export interface Token {
+    token_type: string
+    access_token: string
+    expires_at: number
+    refresh_token: number
+}
