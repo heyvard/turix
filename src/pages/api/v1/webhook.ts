@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             VALUES ($1, $2)`,
         [req.body, JSON.stringify(req.query)],
     )
-    const body = JSON.parse(req.body) as WebookRequest
+    const body = req.body as WebookRequest
     if (body.object_type == 'activity') {
         if (body.aspect_type == 'update' || body.aspect_type == 'delete') {
             await client.query(
