@@ -1,22 +1,44 @@
 import React from 'react'
 import { UseActivities } from '../queries/useActivities'
 import dayjs from 'dayjs'
-import { Accordion, AccordionDetails, AccordionSummary, Container } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Select } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 import { Typography } from '@mui/material'
 import { SimpleActivity } from '../types/db'
 import { meterTilKmVisning } from '../utils/distanceUtils'
 
+const aktiviteter = [
+    'Ride',
+    'Run',
+    'NordicSki',
+    'VirtualRide',
+    'Hike',
+    'Walk',
+    'Workout',
+    'Kayaking',
+    'RollerSki',
+    'WeightTraining',
+    'EBikeRide',
+    'BackcountrySki',
+    'Canoeing',
+    'AlpineSki',
+    'Yoga',
+    'StandUpPaddling',
+    'IceSkate',
+    'Snowboard',
+    'Sail',
+]
 export const Langrennsaar = () => {
     const { data: activities } = UseActivities()
-
+    const [aktivtet, setAktivitet] = React.useState('NordicSki')
     if (!activities) {
         return null
     }
 
-    const langrenn = activities.filter((a) => a.type1 == 'NordicSki' || a.type1 == 'BackcountrySki')
-    var aarStart = dayjs('2010-07-01')
+    const langrenn = activities.filter((a) => a.type1 == aktivtet)
+
+    const baseAarStart = aktivtet == 'NordicSki' ? dayjs('2010-07-01') : dayjs('2010-01-01')
 
     interface Aar {
         distance: number
@@ -29,6 +51,7 @@ export const Langrennsaar = () => {
     }
 
     const aarene = [] as Aar[]
+    var aarStart = baseAarStart
     do {
         const nesteAar = aarStart.add(1, 'year')
 
@@ -61,16 +84,30 @@ export const Langrennsaar = () => {
             aarene.push(aaret)
         }
         aarStart = nesteAar
-    } while (aarStart.year() < dayjs().year())
+    } while (aarStart.year() <= dayjs().year())
 
     return (
         <>
             <Container maxWidth="md" sx={{ p: 0 }}>
+                <Select
+                    sx={{ mb: 2 }}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={aktivtet}
+                    label="Aktivitet"
+                    onChange={(e) => setAktivitet(e.target.value)}
+                >
+                    {aktiviteter.map((a) => {
+                        return <MenuItem value={a}>{a}</MenuItem>
+                    })}
+                </Select>
                 {aarene.reverse().map((row, i) => {
+                    const aar = aktivtet == 'NordicSki' ? `${row.aarStart}-${row.aarSlutt}` : row.aarStart
+
                     return (
                         <Accordion key={i}>
                             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography sx={{ pr: 1 }}>{`${row.aarStart}-${row.aarSlutt}`}</Typography>
+                                <Typography sx={{ pr: 1 }}>{aar}</Typography>
                                 <Typography
                                     sx={{
                                         textAlign: 'right',
@@ -81,7 +118,7 @@ export const Langrennsaar = () => {
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography variant={'body1'}>{row.antall} skiturer</Typography>
+                                <Typography variant={'body1'}>{row.antall} aktiviter</Typography>
                                 {row.lengsteTur && (
                                     <Typography variant={'body1'}>
                                         {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(
