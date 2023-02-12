@@ -98,7 +98,11 @@ export const Langrennsaar = () => {
                     onChange={(e) => setAktivitet(e.target.value)}
                 >
                     {aktiviteter.map((a) => {
-                        return <MenuItem key={a} value={a}>{a}</MenuItem>
+                        return (
+                            <MenuItem key={a} value={a}>
+                                {a}
+                            </MenuItem>
+                        )
                     })}
                 </Select>
                 {aarene.reverse().map((row, i) => {
