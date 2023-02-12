@@ -1,8 +1,13 @@
 import React from 'react'
 import { UseActivities } from '../queries/useActivities'
 import dayjs from 'dayjs'
-import { Container } from '@mui/material'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Container } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
+import { Typography } from '@mui/material'
+import { SimpleActivity } from '../types/db'
+import { meterTilKmVisning } from '../utils/distanceUtils'
+
 export const Langrennsaar = () => {
     const { data: activities } = UseActivities()
 
@@ -18,7 +23,9 @@ export const Langrennsaar = () => {
         antall: number
         aarStart: number
         aarSlutt: number
+        lengsteTur?: SimpleActivity
     }
+
     const aarene = [] as Aar[]
     do {
         const nesteAar = aarStart.add(1, 'year')
@@ -27,15 +34,26 @@ export const Langrennsaar = () => {
             let date = dayjs(a.start_date)
             return date.isAfter(aarStart) && date.isBefore(nesteAar)
         })
+        if (aktiviter.length == 0) {
+            return {
+                antall: 0,
+                distance: 0,
+                aarSlutt: nesteAar.year(),
+                aarStart: aarStart.year(),
+            }
+        }
 
         const antall = aktiviter.length
         const sum = aktiviter.map((a) => a.distance).reduce((partialSum, a) => partialSum + a, 0)
+        const sortert = aktiviter.sort((a, b) => a.distance - b.distance) // b - a for reverse sort
+        const lengsteTur = sortert[aktiviter.length - 1]
 
         const aaret: Aar = {
             antall,
             distance: sum,
             aarSlutt: nesteAar.year(),
             aarStart: aarStart.year(),
+            lengsteTur,
         }
 
         aarene.push(aaret)
@@ -45,39 +63,33 @@ export const Langrennsaar = () => {
     return (
         <>
             <Container maxWidth="md" sx={{ p: 0 }}>
-                <TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Sesong</TableCell>
-                                <TableCell align="right">Distanse</TableCell>
-                                <TableCell align="center">Turer</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {aarene.reverse().map((row, i) => {
-                                return (
-                                    <TableRow
-                                        key={i}
-                                        sx={{
-                                            '&:last-child td, &:last-child th': { border: 0 },
-                                        }}
-                                    >
-                                        <TableCell align="center" sx={{ pt: 1, pb: 2 }}>
-                                            <Typography>{`${row.aarStart}-${row.aarSlutt}`}</Typography>
-                                        </TableCell>
-                                        <TableCell align="right" sx={{ pt: 1, pb: 2 }}>
-                                            <Typography>{`${(row.distance / 1000).toFixed(2)}km`}</Typography>
-                                        </TableCell>
-                                        <TableCell align="center" sx={{ pt: 1, pb: 2 }}>
-                                            <Typography>{row.antall}</Typography>
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                {aarene.reverse().map((row, i) => {
+                    return (
+                        <Accordion key={i}>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography sx={{ pr: 1 }}>{`${row.aarStart}-${row.aarSlutt}`}</Typography>
+                                <Typography
+                                    sx={{
+                                        textAlign: 'right',
+                                        width: '6em',
+                                    }}
+                                >
+                                    {meterTilKmVisning(row.distance)}
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography variant={'body1'}>{row.antall} skiturer</Typography>
+                                {row.lengsteTur && (
+                                    <Typography variant={'body1'}>
+                                        {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(
+                                            row.lengsteTur.distance,
+                                        )})`}
+                                    </Typography>
+                                )}
+                            </AccordionDetails>
+                        </Accordion>
+                    )
+                })}
             </Container>
         </>
     )
