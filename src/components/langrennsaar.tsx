@@ -34,29 +34,22 @@ export const Langrennsaar = () => {
             let date = dayjs(a.start_date)
             return date.isAfter(aarStart) && date.isBefore(nesteAar)
         })
-        if (aktiviter.length == 0) {
-            return {
-                antall: 0,
-                distance: 0,
+        if (aktiviter.length > 0) {
+            const antall = aktiviter.length
+            const sum = aktiviter.map((a) => a.distance).reduce((partialSum, a) => partialSum + a, 0)
+            const sortert = aktiviter.sort((a, b) => a.distance - b.distance) // b - a for reverse sort
+            const lengsteTur = sortert[aktiviter.length - 1]
+
+            const aaret: Aar = {
+                antall,
+                distance: sum,
                 aarSlutt: nesteAar.year(),
                 aarStart: aarStart.year(),
+                lengsteTur,
             }
+
+            aarene.push(aaret)
         }
-
-        const antall = aktiviter.length
-        const sum = aktiviter.map((a) => a.distance).reduce((partialSum, a) => partialSum + a, 0)
-        const sortert = aktiviter.sort((a, b) => a.distance - b.distance) // b - a for reverse sort
-        const lengsteTur = sortert[aktiviter.length - 1]
-
-        const aaret: Aar = {
-            antall,
-            distance: sum,
-            aarSlutt: nesteAar.year(),
-            aarStart: aarStart.year(),
-            lengsteTur,
-        }
-
-        aarene.push(aaret)
         aarStart = nesteAar
     } while (aarStart.year() < dayjs().year())
 
