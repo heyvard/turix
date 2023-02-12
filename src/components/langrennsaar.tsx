@@ -1,7 +1,7 @@
 import React from 'react'
 import { UseActivities } from '../queries/useActivities'
 import dayjs from 'dayjs'
-import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Select } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Container, Link, MenuItem, Select } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 import { Typography } from '@mui/material'
@@ -125,9 +125,15 @@ export const Langrennsaar = () => {
                                 <Typography variant={'body1'}>{row.antall} aktiviter</Typography>
                                 {row.lengsteTur && (
                                     <Typography variant={'body1'}>
-                                        {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(
-                                            row.lengsteTur.distance,
-                                        )})`}
+                                        <Link
+                                            target="_blank"
+                                            underline="none"
+                                            href={'https://www.strava.com/activities/' + row.lengsteTur.activity_id}
+                                        >
+                                            {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(
+                                                row.lengsteTur.distance,
+                                            )})`}
+                                        </Link>
                                     </Typography>
                                 )}
 

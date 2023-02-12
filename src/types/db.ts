@@ -16,6 +16,7 @@ export interface User {
 
 export interface SimpleActivity {
     name: string
+    activity_id: string
     distance: number
     start_date: string
     type1: string

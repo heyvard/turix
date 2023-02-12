@@ -12,6 +12,7 @@ const handler = async function handler(opts: ApiHandlerOpts): Promise<void> {
             `
                 SELECT name,
                        distance,
+                       activity_id,
                        start_date,
                        type1,
                        sport_type,
