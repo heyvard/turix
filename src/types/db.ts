@@ -20,4 +20,6 @@ export interface SimpleActivity {
     start_date: string
     type1: string
     sport_type: string
+    moving_time?: number
+    elapsed_time?: number
 }

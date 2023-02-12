@@ -10,14 +10,16 @@ const handler = async function handler(opts: ApiHandlerOpts): Promise<void> {
     const activities = (
         await client.query(
             `
-          SELECT  name,
-                  distance,
-                  start_date,
-                  type1,
-                  sport_type
-          FROM activities
-          WHERE user_id = $1
-order by start_date desc ;`,
+                SELECT name,
+                       distance,
+                       start_date,
+                       type1,
+                       sport_type,
+                       moving_time,
+                       elapsed_time
+                FROM activities
+                WHERE user_id = $1
+                order by start_date desc;`,
             [user?.id],
         )
     ).rows

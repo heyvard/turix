@@ -23,6 +23,8 @@ export const Langrennsaar = () => {
         antall: number
         aarStart: number
         aarSlutt: number
+        movingTime: number
+        elapsedTime: number
         lengsteTur?: SimpleActivity
     }
 
@@ -36,15 +38,23 @@ export const Langrennsaar = () => {
         })
         if (aktiviter.length > 0) {
             const antall = aktiviter.length
-            const sum = aktiviter.map((a) => a.distance).reduce((partialSum, a) => partialSum + a, 0)
+            const totalDistanse = aktiviter.map((a) => a.distance).reduce((partialSum, a) => partialSum + a, 0)
+            const totalElapsedTid = aktiviter
+                .map((a) => a.elapsed_time)
+                .reduce((partialSum, a) => (partialSum ?? 0) + (a ?? 0) / 3600, 0)
+            const totalMovingTid = aktiviter
+                .map((a) => a.moving_time)
+                .reduce((partialSum, a) => (partialSum ?? 0) + (a ?? 0) / 3600, 0)
             const sortert = aktiviter.sort((a, b) => a.distance - b.distance) // b - a for reverse sort
             const lengsteTur = sortert[aktiviter.length - 1]
 
             const aaret: Aar = {
                 antall,
-                distance: sum,
+                distance: totalDistanse,
                 aarSlutt: nesteAar.year(),
                 aarStart: aarStart.year(),
+                elapsedTime: totalElapsedTid ?? 0,
+                movingTime: totalMovingTid ?? 0,
                 lengsteTur,
             }
 
@@ -79,6 +89,13 @@ export const Langrennsaar = () => {
                                         )})`}
                                     </Typography>
                                 )}
+
+                                <Typography variant={'body1'}>
+                                    {`Total tid: ${Math.round(row.elapsedTime)} timer`}
+                                </Typography>
+                                <Typography variant={'body1'}>
+                                    {`Total effektiv tid: ${Math.round(row.movingTime)} timer`}
+                                </Typography>
                             </AccordionDetails>
                         </Accordion>
                     )
