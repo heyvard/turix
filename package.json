@@ -17,7 +17,7 @@
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@mui/icons-material": "^5.11.0",
-        "@mui/lab": "^5.0.0-alpha.118",
+        "@mui/lab": "^5.0.0-alpha.119",
         "@mui/material": "^5.11.7",
         "@next/env": "^13.1.6",
         "array-shuffle": "^3.0.0",
