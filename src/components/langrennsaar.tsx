@@ -47,7 +47,8 @@ export const Langrennsaar = () => {
         aarSlutt: number
         movingTime: number
         elapsedTime: number
-        lengsteTur?: SimpleActivity
+        lengsteTur: SimpleActivity
+        aktiviteter: SimpleActivity[]
     }
 
     const aarene = [] as Aar[]
@@ -79,6 +80,7 @@ export const Langrennsaar = () => {
                 elapsedTime: totalElapsedTid ?? 0,
                 movingTime: totalMovingTid ?? 0,
                 lengsteTur,
+                aktiviteter: aktiviter.reverse(),
             }
 
             aarene.push(aaret)
@@ -107,6 +109,11 @@ export const Langrennsaar = () => {
                 </Select>
                 {aarene.reverse().map((row, i) => {
                     const aar = aktivtet == 'NordicSki' ? `${row.aarStart}-${row.aarSlutt}` : row.aarStart
+                    const _snittfart = () => {
+                        const base = (row.movingTime * 50) / (row.distance / 1000)
+                        const sekunder = (base - Math.floor(base)) * 60
+                        return `${Math.floor(base)}:${sekunder.toFixed(0)}` + '  ' + base.toFixed(2)
+                    }
 
                     return (
                         <Accordion key={i}>
@@ -143,6 +150,26 @@ export const Langrennsaar = () => {
                                 <Typography variant={'body1'}>
                                     {`Total effektiv tid: ${Math.round(row.movingTime)} timer`}
                                 </Typography>
+                                <Accordion>
+                                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                        <Typography>Aktiviteter</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        {row.aktiviteter.map((a, i) => {
+                                            return (
+                                                <Typography key={i} variant={'body1'}>
+                                                    <Link
+                                                        target="_blank"
+                                                        underline="none"
+                                                        href={'https://www.strava.com/activities/' + a.activity_id}
+                                                    >
+                                                        {`${a.name} (${meterTilKmVisning(a.distance)})`}
+                                                    </Link>
+                                                </Typography>
+                                            )
+                                        })}
+                                    </AccordionDetails>
+                                </Accordion>
                             </AccordionDetails>
                         </Accordion>
                     )
