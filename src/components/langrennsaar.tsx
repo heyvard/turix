@@ -29,9 +29,12 @@ const aktiviteter = [
     'Snowboard',
     'Sail',
 ]
+type sortering = 'Distanse' | 'Tid' | 'Dato'
 export const Langrennsaar = () => {
     const { data: activities } = UseActivities()
     const [aktivtet, setAktivitet] = React.useState('NordicSki')
+    const [sortering, setSortering] = React.useState<sortering>('Distanse')
+
     if (!activities) {
         return null
     }
@@ -115,6 +118,21 @@ export const Langrennsaar = () => {
                         return `${Math.floor(base)}:${sekunder.toFixed(0)}` + '  ' + base.toFixed(2)
                     }
 
+                    const aktivitetene = () => {
+                        if (sortering == 'Distanse') {
+                            return row.aktiviteter.sort((a, b) => b.distance - a.distance)
+                        }
+                        if (sortering == 'Tid') {
+                            return row.aktiviteter.sort((a, b) => (b.elapsed_time ?? 0) - (a.elapsed_time ?? 0))
+                        }
+                        if (sortering == 'Dato') {
+                            return row.aktiviteter.sort(
+                                (a, b) => dayjs(b.start_date).unix() - dayjs(a.start_date).unix(),
+                            )
+                        }
+                        return row.aktiviteter
+                    }
+
                     return (
                         <Accordion key={i}>
                             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -150,12 +168,23 @@ export const Langrennsaar = () => {
                                 <Typography variant={'body1'}>
                                     {`Total effektiv tid: ${Math.round(row.movingTime)} timer`}
                                 </Typography>
-                                <Accordion>
+                                <Accordion sx={{ pt: 1 }}>
                                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                         <Typography>Aktiviteter</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                        {row.aktiviteter.map((a, i) => {
+                                        <Select
+                                            sx={{ mb: 2 }}
+                                            value={sortering}
+                                            label="Sortering"
+                                            onChange={(e) => setSortering(e.target.value as any)}
+                                        >
+                                            <MenuItem value={'Distanse'}>Distanse</MenuItem>
+                                            <MenuItem value={'Tid'}>Tid</MenuItem>
+                                            <MenuItem value={'Dato'}>Dato</MenuItem>
+                                        </Select>
+
+                                        {aktivitetene().map((a, i) => {
                                             return (
                                                 <Typography key={i} variant={'body1'}>
                                                     <Link
@@ -163,7 +192,9 @@ export const Langrennsaar = () => {
                                                         underline="none"
                                                         href={'https://www.strava.com/activities/' + a.activity_id}
                                                     >
-                                                        {`${a.name} (${meterTilKmVisning(a.distance)})`}
+                                                        {`${dayjs(a.start_date).format('DD.MM.YYYY')} ${
+                                                            a.name
+                                                        } (${meterTilKmVisning(a.distance)})`}
                                                     </Link>
                                                 </Typography>
                                             )
