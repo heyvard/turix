@@ -129,6 +129,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <>
             <Head>
                 <title>Langrennstats</title>
+                <link
+                    rel="stylesheet"
+                    href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+                    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+                    crossOrigin=""
+                />
             </Head>
             <Theme>
                 <QueryClientProvider client={queryClient}>
