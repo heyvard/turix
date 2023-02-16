@@ -1,10 +1,10 @@
 import { useQuery } from 'react-query'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import firebase from '../auth/clientApp'
+import { getFirebaseAuth } from '../auth/clientApp'
 import { User } from '../types/db'
 
 export function UseUser() {
-    const [user] = useAuthState(firebase.auth())
+    const [user] = useAuthState(getFirebaseAuth())
 
     return useQuery<User, Error>('user-me', async () => {
         const idtoken = await user?.getIdToken()

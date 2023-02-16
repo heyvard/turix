@@ -9,10 +9,14 @@ export interface SyncResponse {
     page?: number
 }
 
-const handler = async function handler(opts: ApiHandlerOpts<SyncResponse>): Promise<void> {
+const handler = async function handler(opts: ApiHandlerOpts<SyncResponse | string>): Promise<void> {
     const { res, user, client } = opts
     if (!user) {
-        res.status(401)
+        res.status(401).send('401')
+        return
+    }
+    if (!user.athlete_id) {
+        res.status(400).send('Ingen athlete id')
         return
     }
     if (user.done) {

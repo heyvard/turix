@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import firebase from '../auth/clientApp'
+import { getFirebaseAuth } from '../auth/clientApp'
 import { SignInScreen } from '../components/SignIn'
 import LogoutIcon from '@mui/icons-material/Logout'
 import HomeIcon from '@mui/icons-material/Home'
@@ -16,7 +16,7 @@ import Head from 'next/head'
 
 function UserFetchInnlogging(props: { children: React.ReactNode }) {
     const { data: me, isLoading } = UseUser()
-    const [user] = useAuthState(firebase.auth())
+    const [user] = useAuthState(getFirebaseAuth())
 
     const router = useRouter()
 
@@ -75,7 +75,7 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
                         </MenuItem>
                         <MenuItem
                             onClick={async () => {
-                                await firebase.auth().signOut()
+                                await getFirebaseAuth().signOut()
                                 handleClose()
                             }}
                         >
@@ -90,7 +90,7 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
 }
 
 function UserInnlogging(props: { children: React.ReactNode }) {
-    const [user, loading, error] = useAuthState(firebase.auth())
+    const [user, loading, error] = useAuthState(getFirebaseAuth())
     if (loading) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">

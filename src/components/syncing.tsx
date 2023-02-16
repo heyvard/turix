@@ -2,13 +2,13 @@ import { UseUser } from '../queries/useUser'
 import React from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import firebase from '../auth/clientApp'
+import { getFirebaseAuth } from '../auth/clientApp'
 import { SyncResponse } from '../pages/api/v1/sync'
 import { UseActivities } from '../queries/useActivities'
 
 export const Syncing = () => {
     const { data: megselv } = UseUser()
-    const [user] = useAuthState(firebase.auth())
+    const [user] = useAuthState(getFirebaseAuth())
     const queryClient = useQueryClient()
     const { data: activities } = UseActivities()
 
@@ -23,7 +23,7 @@ export const Syncing = () => {
             return (await responsePromise.json()) as Promise<SyncResponse>
         },
         {
-            enabled: megselv && megselv.done != true,
+            enabled: megselv && megselv.done != true && megselv.athlete_id != null,
             onSuccess: () => {
                 queryClient.invalidateQueries('activities').then()
                 queryClient.invalidateQueries('user-me').then()
