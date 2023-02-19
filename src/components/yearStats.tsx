@@ -16,28 +16,8 @@ import Link from 'next/link'
 import { Typography } from '@mui/material'
 import { SimpleActivity } from '../types/db'
 import { meterTilKmVisning } from '../utils/distanceUtils'
+import { aktiviteter } from '../utils/aktivitetstyper'
 
-const aktiviteter = [
-    'Ride',
-    'Run',
-    'NordicSki',
-    'VirtualRide',
-    'Hike',
-    'Walk',
-    'Workout',
-    'Kayaking',
-    'RollerSki',
-    'WeightTraining',
-    'EBikeRide',
-    'BackcountrySki',
-    'Canoeing',
-    'AlpineSki',
-    'Yoga',
-    'StandUpPaddling',
-    'IceSkate',
-    'Snowboard',
-    'Sail',
-]
 type sortering = 'Distanse' | 'Tid' | 'Dato'
 export const YearStats = () => {
     const { data: activities } = UseActivities()
