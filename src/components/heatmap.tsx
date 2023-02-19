@@ -17,6 +17,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { MenuItem, Select, Link as MuiLink, TextField } from '@mui/material'
 import { aktiviteter } from '../utils/aktivitetstyper'
+import { meterTilKmVisning } from '../utils/distanceUtils'
 
 const Heatmap = () => {
     const { data: megselv } = UseUser()
@@ -52,6 +53,7 @@ const Heatmap = () => {
                 activityPositions: polyline.decode(activity_polyline!!),
                 activityName: activity_name,
                 id: a.activity_id,
+                distance: a.distance,
             }
         })
 
@@ -101,7 +103,15 @@ const Heatmap = () => {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     {langrennUser1.map((activity, i) => (
-                        <Polyline color={'orange'} opacity={99} key={i} positions={activity.activityPositions}>
+                        <Polyline
+                            color={'red'}
+                            smoothFactor={0.3}
+                            weight={5}
+                            fillOpacity={0.1}
+                            opacity={0.7}
+                            key={i}
+                            positions={activity.activityPositions}
+                        >
                             <Popup>
                                 <MuiLink
                                     target="_blank"
@@ -110,6 +120,9 @@ const Heatmap = () => {
                                 >
                                     {activity.activityName}
                                 </MuiLink>
+                                <Typography variant={'body2'} style={{ margin: 0 }}>
+                                    {meterTilKmVisning(activity.distance)}
+                                </Typography>
                             </Popup>
                         </Polyline>
                     ))}
