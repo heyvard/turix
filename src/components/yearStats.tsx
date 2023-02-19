@@ -30,7 +30,7 @@ export const YearStats = () => {
 
     const langrenn = activities.filter((a) => a.type1 == aktivitet)
 
-    const baseAarStart = aktivitet == 'NordicSki' ? dayjs('2010-07-01') : dayjs('2010-01-01')
+    const baseAarStart = aktivitet == 'NordicSki' ? dayjs('1998-07-01') : dayjs('1998-01-01')
 
     interface Aar {
         distance: number
