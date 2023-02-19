@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { MenuItem, Select, TextField } from '@mui/material'
+import { MenuItem, Select, Link as MuiLink, TextField } from '@mui/material'
 import { aktiviteter } from '../utils/aktivitetstyper'
 
 const Heatmap = () => {
@@ -48,7 +48,11 @@ const Heatmap = () => {
         .map((a) => {
             const activity_polyline = a.map_summary_polyline
             const activity_name = a.name
-            return { activityPositions: polyline.decode(activity_polyline!!), activityName: activity_name }
+            return {
+                activityPositions: polyline.decode(activity_polyline!!),
+                activityName: activity_name,
+                id: a.activity_id,
+            }
         })
 
     return (
@@ -99,9 +103,13 @@ const Heatmap = () => {
                     {langrennUser1.map((activity, i) => (
                         <Polyline color={'orange'} opacity={99} key={i} positions={activity.activityPositions}>
                             <Popup>
-                                <div>
-                                    <h2>{activity.activityName}</h2>
-                                </div>
+                                <MuiLink
+                                    target="_blank"
+                                    underline="none"
+                                    href={`https://www.strava.com/activities/${activity.id}`}
+                                >
+                                    {activity.activityName}
+                                </MuiLink>
                             </Popup>
                         </Polyline>
                     ))}
