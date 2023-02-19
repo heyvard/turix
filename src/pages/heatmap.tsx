@@ -3,7 +3,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 
 const Home: NextPage = () => {
-    const DynamicComponentWithNoSSR = dynamic(() => import('../components/kart'), {
+    const DynamicComponentWithNoSSR = dynamic(() => import('../components/heatmap'), {
         ssr: false,
     })
 

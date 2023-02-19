@@ -1,8 +1,17 @@
 import React from 'react'
 import { UseActivities } from '../queries/useActivities'
-import dayjs from 'dayjs'
-import { Accordion, AccordionDetails, AccordionSummary, Container, Link, MenuItem, Select } from '@mui/material'
+import dayjs, { Dayjs } from 'dayjs'
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Container,
+    Link as MuiLink,
+    MenuItem,
+    Select,
+} from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Link from 'next/link'
 
 import { Typography } from '@mui/material'
 import { SimpleActivity } from '../types/db'
@@ -30,24 +39,24 @@ const aktiviteter = [
     'Sail',
 ]
 type sortering = 'Distanse' | 'Tid' | 'Dato'
-export const Langrennsaar = () => {
+export const YearStats = () => {
     const { data: activities } = UseActivities()
-    const [aktivtet, setAktivitet] = React.useState('NordicSki')
-    const [sortering, setSortering] = React.useState<sortering>('Distanse')
+    const [aktivitet, setAktivitet] = React.useState('NordicSki')
+    const [sortering, setSortering] = React.useState<sortering>('Dato')
 
     if (!activities) {
         return null
     }
 
-    const langrenn = activities.filter((a) => a.type1 == aktivtet)
+    const langrenn = activities.filter((a) => a.type1 == aktivitet)
 
-    const baseAarStart = aktivtet == 'NordicSki' ? dayjs('2010-07-01') : dayjs('2010-01-01')
+    const baseAarStart = aktivitet == 'NordicSki' ? dayjs('2010-07-01') : dayjs('2010-01-01')
 
     interface Aar {
         distance: number
         antall: number
-        aarStart: number
-        aarSlutt: number
+        aarStart: Dayjs
+        aarSlutt: Dayjs
         movingTime: number
         elapsedTime: number
         lengsteTur: SimpleActivity
@@ -78,8 +87,8 @@ export const Langrennsaar = () => {
             const aaret: Aar = {
                 antall,
                 distance: totalDistanse,
-                aarSlutt: nesteAar.year(),
-                aarStart: aarStart.year(),
+                aarSlutt: nesteAar,
+                aarStart: aarStart,
                 elapsedTime: totalElapsedTid ?? 0,
                 movingTime: totalMovingTid ?? 0,
                 lengsteTur,
@@ -98,7 +107,7 @@ export const Langrennsaar = () => {
                     sx={{ mb: 2 }}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={aktivtet}
+                    value={aktivitet}
                     label="Aktivitet"
                     onChange={(e) => setAktivitet(e.target.value)}
                 >
@@ -111,8 +120,10 @@ export const Langrennsaar = () => {
                     })}
                 </Select>
                 {aarene.reverse().map((row, i) => {
-                    const aar = aktivtet == 'NordicSki' ? `${row.aarStart}-${row.aarSlutt}` : row.aarStart
+                    const aar =
+                        aktivitet == 'NordicSki' ? `${row.aarStart.year()}-${row.aarSlutt.year()}` : row.aarStart.year()
                     const _snittfart = () => {
+                        //TODO: Fiks snittfart
                         const base = (row.movingTime * 50) / (row.distance / 1000)
                         const sekunder = (base - Math.floor(base)) * 60
                         return `${Math.floor(base)}:${sekunder.toFixed(0)}` + '  ' + base.toFixed(2)
@@ -147,10 +158,22 @@ export const Langrennsaar = () => {
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
+                                <Link
+                                    href={{
+                                        pathname: 'heatmap',
+                                        query: {
+                                            activity: aktivitet,
+                                            fom: row.aarStart.format('YYYY-MM-DD'),
+                                            tom: row.aarSlutt.format('YYYY-MM-DD'),
+                                        },
+                                    }}
+                                >
+                                    <MuiLink underline={'none'}>Heatmap</MuiLink>
+                                </Link>
                                 <Typography variant={'body1'}>{row.antall} aktiviter</Typography>
                                 {row.lengsteTur && (
                                     <Typography variant={'body1'}>
-                                        <Link
+                                        <MuiLink
                                             target="_blank"
                                             underline="none"
                                             href={'https://www.strava.com/activities/' + row.lengsteTur.activity_id}
@@ -158,7 +181,7 @@ export const Langrennsaar = () => {
                                             {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(
                                                 row.lengsteTur.distance,
                                             )})`}
-                                        </Link>
+                                        </MuiLink>
                                     </Typography>
                                 )}
 
@@ -187,7 +210,7 @@ export const Langrennsaar = () => {
                                         {aktivitetene().map((a, i) => {
                                             return (
                                                 <Typography key={i} variant={'body1'}>
-                                                    <Link
+                                                    <MuiLink
                                                         target="_blank"
                                                         underline="none"
                                                         href={'https://www.strava.com/activities/' + a.activity_id}
@@ -195,7 +218,7 @@ export const Langrennsaar = () => {
                                                         {`${dayjs(a.start_date).format('DD.MM.YYYY')} ${
                                                             a.name
                                                         } (${meterTilKmVisning(a.distance)})`}
-                                                    </Link>
+                                                    </MuiLink>
                                                 </Typography>
                                             )
                                         })}

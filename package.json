@@ -14,6 +14,7 @@
         "format": "npm run prettier:write && npm run lint:fix"
     },
     "dependencies": {
+        "@date-io/dayjs": "^2.16.0",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@mapbox/polyline": "^1.1.1",
@@ -38,6 +39,7 @@
     },
     "devDependencies": {
         "@types/leaflet": "^1.9.0",
+        "@types/mapbox__polyline": "^1.0.2",
         "@types/node": "18.13.0",
         "@types/pg": "^8.6.6",
         "@types/react-dom": "18.0.11",

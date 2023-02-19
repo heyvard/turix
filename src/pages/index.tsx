@@ -7,7 +7,7 @@ import { Typography } from '@mui/material'
 import React from 'react'
 import { UseActivities } from '../queries/useActivities'
 import { Syncing } from '../components/syncing'
-import { Langrennsaar } from '../components/langrennsaar'
+import { YearStats } from '../components/yearStats'
 
 const Home: NextPage = () => {
     const { data: megselv } = UseUser()
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
                 {!megselv.athlete_id && <a href={href}>Koble til strava</a>}
                 <br />
 
-                <Langrennsaar />
+                <YearStats />
             </Container>
         </>
     )

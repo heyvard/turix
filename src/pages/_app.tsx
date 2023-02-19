@@ -4,6 +4,7 @@ import { getFirebaseAuth } from '../auth/clientApp'
 import { SignInScreen } from '../components/SignIn'
 import LogoutIcon from '@mui/icons-material/Logout'
 import HomeIcon from '@mui/icons-material/Home'
+import MapIcon from '@mui/icons-material/Map'
 import { BottomNavigation, BottomNavigationAction, Box, CircularProgress, Menu, MenuItem, Paper } from '@mui/material'
 import React, { SyntheticEvent, useState } from 'react'
 import { Person } from '@mui/icons-material'
@@ -48,6 +49,7 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
                     }}
                 >
                     <BottomNavigationAction value="/" icon={<HomeIcon />} />
+                    <BottomNavigationAction value="/heatmap" icon={<MapIcon />} />
 
                     <Menu
                         id="menu-appbar"
