@@ -15,7 +15,7 @@
     },
     "dependencies": {
         "@date-io/dayjs": "^2.16.0",
-        "@emotion/react": "^11.10.4",
+        "@emotion/react": "^11.10.6",
         "@emotion/styled": "^11.10.4",
         "@mapbox/polyline": "^1.1.1",
         "@mui/icons-material": "^5.11.0",
