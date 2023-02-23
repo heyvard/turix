@@ -20,7 +20,7 @@ const Home: NextPage = () => {
     let cbUrl = window.location.href + 'api/v1/authcb'
     let clientId = process.env.NEXT_PUBLIC_STRAVA_CLIENT_ID
 
-    let href = `http://www.strava.com/oauth/authorize?client_id=${clientId}&state=${megselv.id}&response_type=code&redirect_uri=${cbUrl}&approval_prompt=force&scope=activity:read_all,read`
+    let href = `http://www.strava.com/oauth/authorize?client_id=${clientId}&state=${megselv.id}&response_type=code&redirect_uri=${cbUrl}&approval_prompt=force&scope=activity:read`
     return (
         <>
             <Container maxWidth="md" sx={{ mt: 1 }}>
