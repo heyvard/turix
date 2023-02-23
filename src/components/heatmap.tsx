@@ -57,13 +57,12 @@ const Heatmap = () => {
             }
         })
 
+    let tittel = `${aktiviteten} i perioden ${fomDato.format('DD.MM.YYYY')} - ${tomDato.format('DD.MM.YYYY')}`
     return (
         <>
             <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>{`${aktiviteten} i perioden ${fomDato.format('YYYY-MM-DD')} - ${tomDato.format(
-                        'YYYY-MM-DD',
-                    )}`}</Typography>
+                    <Typography style={{ fontSize: '3vw' }}>{tittel}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -81,18 +80,22 @@ const Heatmap = () => {
                                 )
                             })}
                         </Select>
-                        <DatePicker
-                            label="Fra og med dato"
-                            value={fomDato}
-                            onChange={(newValue) => newValue && setFomDato(newValue)}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                        <DatePicker
-                            label="Til og med dato"
-                            value={tomDato}
-                            onChange={(newValue) => newValue && setTomDato(newValue)}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
+                        <div>
+                            <DatePicker
+                                label="Fra og med dato"
+                                value={fomDato}
+                                inputFormat="DD.MM.YYYY"
+                                onChange={(newValue) => newValue && setFomDato(newValue)}
+                                renderInput={(params) => <TextField style={{ width: '8em' }} {...params} />}
+                            />
+                            <DatePicker
+                                label="Til og med dato"
+                                value={tomDato}
+                                inputFormat="DD.MM.YYYY"
+                                onChange={(newValue) => newValue && setTomDato(newValue)}
+                                renderInput={(params) => <TextField style={{ width: '8em' }} {...params} />}
+                            />
+                        </div>
                     </LocalizationProvider>
                 </AccordionDetails>
             </Accordion>
