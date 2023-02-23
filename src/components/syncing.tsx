@@ -25,7 +25,8 @@ export const Syncing = () => {
         {
             enabled: megselv && megselv.done != true && megselv.athlete_id != null,
             onSuccess: () => {
-                queryClient.invalidateQueries('activities' + megselv?.athlete_id).then()
+                const queryKey = 'activities' + megselv?.athlete_id
+                queryClient.invalidateQueries(queryKey).then()
                 queryClient.invalidateQueries('user-me').then()
                 setTimeout(() => {
                     queryClient.invalidateQueries('sync').then()
