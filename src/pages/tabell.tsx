@@ -36,6 +36,10 @@ const Home: NextPage = () => {
                 <MUIDataTable
                     title={'Aktiviteter'}
                     data={data}
+                    options={{
+                        selectableRows: 'none',
+                        print: false,
+                    }}
                     columns={[
                         {
                             name: 'Dato',
@@ -58,12 +62,6 @@ const Home: NextPage = () => {
                         },
                         { name: 'Aktivitet' },
                         { name: 'Distanse' },
-                        {
-                            name: 'tittelsok',
-                            options: {
-                                display: false,
-                            },
-                        },
                     ]}
                 />
             </Container>
