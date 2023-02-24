@@ -10,8 +10,6 @@ import { meterTilKmVisning } from '../utils/distanceUtils'
 import dayjs from 'dayjs'
 import { Link as MuiLink } from '@mui/material'
 
-const columns = ['Dato', 'Tittel', 'Aktivitet', 'Distanse']
-
 const Home: NextPage = () => {
     const { data: megselv } = UseUser()
     const { data: activities } = UseActivities()
@@ -23,23 +21,51 @@ const Home: NextPage = () => {
     const data = activities.map((a) => {
         return [
             dayjs(a.start_date).format('YYYY.MM.DD'),
-            <MuiLink
-                key={a.activity_id}
-                target="_blank"
-                underline="none"
-                href={`https://www.strava.com/activities/${a.activity_id}`}
-            >
-                {a.name}
-            </MuiLink>,
+
+            a.name,
             a.type1,
             meterTilKmVisning(a.distance),
+            a.name,
+            a.activity_id,
         ]
     })
 
     return (
         <>
             <Container maxWidth="md" sx={{ mt: 1 }}>
-                <MUIDataTable title={'Aktiviteter'} data={data} columns={columns} />
+                <MUIDataTable
+                    title={'Aktiviteter'}
+                    data={data}
+                    columns={[
+                        {
+                            name: 'Dato',
+                        },
+                        {
+                            name: 'Tittel',
+                            options: {
+                                customBodyRenderLite: (dataIndex: number) => {
+                                    return (
+                                        <MuiLink
+                                            target="_blank"
+                                            underline="none"
+                                            href={'https://www.strava.com/activities/' + data[dataIndex][5]}
+                                        >
+                                            {data[dataIndex][1]}
+                                        </MuiLink>
+                                    )
+                                },
+                            },
+                        },
+                        { name: 'Aktivitet' },
+                        { name: 'Distanse' },
+                        {
+                            name: 'tittelsok',
+                            options: {
+                                display: false,
+                            },
+                        },
+                    ]}
+                />
             </Container>
         </>
     )
