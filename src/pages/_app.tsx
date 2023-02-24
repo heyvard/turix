@@ -14,7 +14,7 @@ import { UseUser } from '../queries/useUser'
 import { useRouter } from 'next/router'
 import { Spinner } from '../components/loading/Spinner'
 import Head from 'next/head'
-
+import TableChartIcon from '@mui/icons-material/TableChart'
 function UserFetchInnlogging(props: { children: React.ReactNode }) {
     const { data: me, isLoading } = UseUser()
     const [user] = useAuthState(getFirebaseAuth())
@@ -50,6 +50,7 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
                 >
                     <BottomNavigationAction value="/" icon={<HomeIcon />} />
                     <BottomNavigationAction value="/heatmap" icon={<MapIcon />} />
+                    <BottomNavigationAction value="/tabell" icon={<TableChartIcon />} />
 
                     <Menu
                         id="menu-appbar"
