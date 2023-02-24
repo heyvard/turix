@@ -8,6 +8,7 @@ import { UseActivities } from '../queries/useActivities'
 import MUIDataTable from 'mui-datatables'
 import { meterTilKmVisning } from '../utils/distanceUtils'
 import dayjs from 'dayjs'
+import { Link as MuiLink } from '@mui/material'
 
 const columns = ['Dato', 'Tittel', 'Aktivitet', 'Distanse']
 
@@ -20,18 +21,25 @@ const Home: NextPage = () => {
     }
 
     const data = activities.map((a) => {
-        return [dayjs(a.start_date).format('YYYY.MM.DD'), a.name, a.type1, meterTilKmVisning(a.distance)]
+        return [
+            dayjs(a.start_date).format('YYYY.MM.DD'),
+            <MuiLink
+                key={a.activity_id}
+                target="_blank"
+                underline="none"
+                href={`https://www.strava.com/activities/${a.activity_id}`}
+            >
+                {a.name}
+            </MuiLink>,
+            a.type1,
+            meterTilKmVisning(a.distance),
+        ]
     })
 
     return (
         <>
             <Container maxWidth="md" sx={{ mt: 1 }}>
-                <MUIDataTable
-                    title={'Aktiviteter'}
-                    data={data}
-                    columns={columns}
-                    //  options={options}
-                />
+                <MUIDataTable title={'Aktiviteter'} data={data} columns={columns} />
             </Container>
         </>
     )
