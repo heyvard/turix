@@ -29,6 +29,7 @@ export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
                 res.status(401)
                 return
             }
+            console.log('auht ferdig')
 
             const verifisert = await verifiserIdToken(authheader.split(' ')[1])
             if (!verifisert) {
