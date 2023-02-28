@@ -15,7 +15,7 @@ import Link from 'next/link'
 
 import { Typography } from '@mui/material'
 import { SimpleActivity } from '../types/db'
-import { kmhToPace, meterTilKmVisning } from '../utils/distanceUtils'
+import { meterTilKmVisning } from '../utils/distanceUtils'
 import { aktiviteter } from '../utils/aktivitetstyper'
 
 type sortering = 'Distanse' | 'Tid' | 'Dato'
@@ -37,8 +37,8 @@ export const YearStats = () => {
         antall: number
         aarStart: Dayjs
         aarSlutt: Dayjs
-        movingTime: BigInt
-        elapsedTime: BigInt
+        movingTime: number
+        elapsedTime: number
         lengsteTur: SimpleActivity
         aktiviteter: SimpleActivity[]
     }
@@ -55,15 +55,12 @@ export const YearStats = () => {
         if (aktiviter.length > 0) {
             const antall = aktiviter.length
             const totalDistanse = aktiviter.map((a) => a.distance).reduce((partialSum, a) => partialSum + a, 0)
-
             const totalElapsedTid = aktiviter
-                .map((a) => BigInt(a.elapsed_time ?? 0))
-                .reduce((partialSum, a) => partialSum + a, BigInt(0))
-
+                .map((a) => a.elapsed_time)
+                .reduce((partialSum, a) => (partialSum ?? 0) + (a ?? 0) / 3600, 0)
             const totalMovingTid = aktiviter
-                .map((a) => BigInt(a.moving_time ?? 0))
-                .reduce((partialSum, a) => partialSum + a, BigInt(0))
-
+                .map((a) => a.moving_time)
+                .reduce((partialSum, a) => (partialSum ?? 0) + (a ?? 0) / 3600, 0)
             const sortert = aktiviter.sort((a, b) => a.distance - b.distance) // b - a for reverse sort
             const lengsteTur = sortert[aktiviter.length - 1]
 
@@ -72,8 +69,8 @@ export const YearStats = () => {
                 distance: totalDistanse,
                 aarSlutt: nesteAar,
                 aarStart: aarStart,
-                elapsedTime: totalElapsedTid,
-                movingTime: totalMovingTid,
+                elapsedTime: totalElapsedTid ?? 0,
+                movingTime: totalMovingTid ?? 0,
                 lengsteTur,
                 aktiviteter: aktiviter.reverse(),
             }
@@ -105,9 +102,12 @@ export const YearStats = () => {
                 {aarene.reverse().map((row, i) => {
                     const aar =
                         aktivitet == 'NordicSki' ? `${row.aarStart.year()}-${row.aarSlutt.year()}` : row.aarStart.year()
-
-                    const averageSpeedKmPerHour = (row.distance / 1000 / Number(row.movingTime.valueOf())) * 3600
-                    const averageElapseSpeedKmPerHour = (row.distance / 1000 / Number(row.elapsedTime.valueOf())) * 3600
+                    const _snittfart = () => {
+                        //TODO: Fiks snittfart
+                        const base = (row.movingTime * 50) / (row.distance / 1000)
+                        const sekunder = (base - Math.floor(base)) * 60
+                        return `${Math.floor(base)}:${sekunder.toFixed(0)}` + '  ' + base.toFixed(2)
+                    }
 
                     const aktivitetene = () => {
                         if (sortering == 'Distanse') {
@@ -124,7 +124,6 @@ export const YearStats = () => {
                         return row.aktiviteter
                     }
 
-                    let minutterPerKm = ['NordicSki', 'Run'].includes(aktivitet)
                     return (
                         <Accordion key={i}>
                             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -167,32 +166,11 @@ export const YearStats = () => {
                                 )}
 
                                 <Typography variant={'body1'}>
-                                    {`Total tid: ${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
+                                    {`Total tid: ${Math.round(row.elapsedTime)} timer`}
                                 </Typography>
                                 <Typography variant={'body1'}>
-                                    {`Total effektiv tid: ${row.movingTime.valueOf() / BigInt(3600)} timer`}
+                                    {`Total effektiv tid: ${Math.round(row.movingTime)} timer`}
                                 </Typography>
-                                {!minutterPerKm && (
-                                    <>
-                                        <Typography variant={'body1'}>
-                                            {`Snitt moving speed: ${averageSpeedKmPerHour.toFixed(2)} km/t`}
-                                        </Typography>
-                                        <Typography variant={'body1'}>
-                                            {`Snitt elapsed speed: ${averageElapseSpeedKmPerHour.toFixed(2)} km/t`}
-                                        </Typography>
-                                    </>
-                                )}
-                                {minutterPerKm && (
-                                    <>
-                                        <Typography variant={'body1'}>
-                                            {`Snitt moving speed: ${kmhToPace(averageSpeedKmPerHour)}`}
-                                        </Typography>
-                                        <Typography variant={'body1'}>
-                                            {`Snitt elapsed speed: ${kmhToPace(averageElapseSpeedKmPerHour)} `}
-                                        </Typography>
-                                    </>
-                                )}
-
                                 <Accordion sx={{ pt: 1 }}>
                                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                         <Typography>Aktiviteter</Typography>
