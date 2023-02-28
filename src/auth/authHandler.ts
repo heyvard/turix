@@ -22,6 +22,7 @@ export function getPool() {
 export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
     return async (req: NextApiRequest, res: NextApiResponse) => {
         try {
+            console.log('Starter auth')
             const start = Date.now()
             const authheader = req.headers.authorization
             if (!authheader) {
@@ -35,6 +36,8 @@ export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
                 return
             }
             const verifsert = Date.now()
+            console.log('Før poolclient')
+
             let client: PoolClient | null = null
             try {
                 client = await getPool().connect()
