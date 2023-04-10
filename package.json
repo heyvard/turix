@@ -17,7 +17,7 @@
         "@date-io/dayjs": "^2.16.0",
         "@emotion/react": "^11.10.6",
         "@emotion/styled": "^11.10.6",
-        "@mapbox/polyline": "^1.1.1",
+        "@mapbox/polyline": "^1.2.0",
         "@mui/icons-material": "^5.11.0",
         "@mui/lab": "^5.0.0-alpha.118",
         "@mui/material": "^5.11.7",
