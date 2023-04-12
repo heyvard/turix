@@ -131,7 +131,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Langrennstats</title>
+                <title>Strava stats</title>
                 <link
                     rel="stylesheet"
                     href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
