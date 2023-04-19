@@ -18,6 +18,17 @@ import { SimpleActivity } from '../types/db'
 import { kmhToPace, meterTilKmVisning } from '../utils/distanceUtils'
 import { aktiviteter } from '../utils/aktivitetstyper'
 
+interface Aar {
+    distance: number
+    antall: number
+    aarStart: Dayjs
+    aarSlutt: Dayjs
+    movingTime: BigInt
+    elapsedTime: BigInt
+    lengsteTur: SimpleActivity
+    aktiviteter: SimpleActivity[]
+}
+
 type sortering = 'Distanse' | 'Tid' | 'Dato'
 export const YearStats = () => {
     const { data: activities } = UseActivities()
@@ -31,17 +42,6 @@ export const YearStats = () => {
     const langrenn = activities.filter((a) => a.type1 == aktivitet)
 
     const baseAarStart = aktivitet == 'NordicSki' ? dayjs('1998-07-01') : dayjs('1998-01-01')
-
-    interface Aar {
-        distance: number
-        antall: number
-        aarStart: Dayjs
-        aarSlutt: Dayjs
-        movingTime: BigInt
-        elapsedTime: BigInt
-        lengsteTur: SimpleActivity
-        aktiviteter: SimpleActivity[]
-    }
 
     const aarene = [] as Aar[]
     var aarStart = baseAarStart
