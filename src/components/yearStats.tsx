@@ -145,7 +145,9 @@ export const YearStats = () => {
                                         width: '6em',
                                     }}
                                 >
-                                    {meterTilKmVisning(row.distance)}
+                                    {aktivitet != 'WeightTraining' && meterTilKmVisning(row.distance)}
+                                    {aktivitet == 'WeightTraining' &&
+                                        `${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
