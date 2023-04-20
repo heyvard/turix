@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { UseActivities } from '../queries/useActivities'
 import dayjs, { Dayjs } from 'dayjs'
 import {
@@ -32,7 +32,17 @@ interface Aar {
 type sortering = 'Distanse' | 'Tid' | 'Dato'
 export const YearStats = () => {
     const { data: activities } = UseActivities()
-    const [aktivitet, setAktivitet] = React.useState('NordicSki')
+
+    const initialAktivitet = () => {
+        const savedAktivitet = localStorage.getItem('aktivitet')
+        return savedAktivitet ? JSON.parse(savedAktivitet) : 'NordicSki'
+    }
+
+    const [aktivitet, setAktivitet] = useState(initialAktivitet)
+
+    useEffect(() => {
+        localStorage.setItem('aktivitet', JSON.stringify(aktivitet))
+    }, [aktivitet])
     const [sortering, setSortering] = React.useState<sortering>('Dato')
 
     if (!activities) {
