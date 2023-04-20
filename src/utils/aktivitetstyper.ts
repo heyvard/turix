@@ -3,6 +3,7 @@ export const aktiviteter = [
     'Run',
     'NordicSki',
     'VirtualRide',
+    'NordicSkiBackcountrySki',
     'Hike',
     'Walk',
     'Workout',

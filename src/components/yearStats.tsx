@@ -39,9 +39,9 @@ export const YearStats = () => {
         return null
     }
 
-    const langrenn = activities.filter((a) => a.type1 == aktivitet)
+    const langrenn = activities.filter((a) => aktivitet.includes(a.type1))
 
-    const baseAarStart = aktivitet == 'NordicSki' ? dayjs('1998-07-01') : dayjs('1998-01-01')
+    const baseAarStart = aktivitet.includes('NordicSki') ? dayjs('1998-07-01') : dayjs('1998-01-01')
 
     const aarene = [] as Aar[]
     var aarStart = baseAarStart
