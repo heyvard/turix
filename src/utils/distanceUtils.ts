@@ -9,3 +9,20 @@ export function kmhToPace(kmPerHour: number) {
     const sekunderPaddet = seconds < 10 ? `0${seconds}` : seconds
     return `${minutes}:${sekunderPaddet} /km`
 }
+
+export function nordicSkiEmoji(meter: number) {
+    const km = meter / 1000
+    if (km > 1600) {
+        return '⭐🏆🏅🏅 '
+    }
+    if (km > 1500) {
+        return '⭐🏆🏅 '
+    }
+    if (km > 1000) {
+        return '⭐🏆 '
+    }
+    if (km > 500) {
+        return '⭐ '
+    }
+    return null
+}

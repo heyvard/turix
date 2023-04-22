@@ -15,7 +15,7 @@ import Link from 'next/link'
 
 import { Typography } from '@mui/material'
 import { SimpleActivity } from '../types/db'
-import { kmhToPace, meterTilKmVisning } from '../utils/distanceUtils'
+import { kmhToPace, meterTilKmVisning, nordicSkiEmoji } from '../utils/distanceUtils'
 import { aktiviteter } from '../utils/aktivitetstyper'
 
 interface Aar {
@@ -142,9 +142,10 @@ export const YearStats = () => {
                                 <Typography
                                     sx={{
                                         textAlign: 'right',
-                                        width: '6em',
+                                        width: '10em',
                                     }}
                                 >
+                                    {aktivitet.includes('NordicSki') && nordicSkiEmoji(row.distance)}
                                     {aktivitet != 'WeightTraining' && meterTilKmVisning(row.distance)}
                                     {aktivitet == 'WeightTraining' &&
                                         `${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
