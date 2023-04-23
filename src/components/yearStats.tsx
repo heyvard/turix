@@ -5,6 +5,7 @@ import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
+    Box,
     Container,
     Link as MuiLink,
     MenuItem,
@@ -151,62 +152,63 @@ export const YearStats = () => {
                                         `${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
                                 </Typography>
                             </AccordionSummary>
-                            <AccordionDetails>
-                                <Link
-                                    href={{
-                                        pathname: 'heatmap',
-                                        query: {
-                                            activity: aktivitet,
-                                            fom: row.aarStart.format('YYYY-MM-DD'),
-                                            tom: row.aarSlutt.format('YYYY-MM-DD'),
-                                        },
-                                    }}
-                                >
-                                    <MuiLink underline={'none'}>Heatmap</MuiLink>
-                                </Link>
-                                <Typography variant={'body1'}>{row.antall} aktiviter</Typography>
-                                {row.lengsteTur && (
+                            <AccordionDetails sx={{ p: 0 }}>
+                                <Box sx={{ px: 2, pb: 1 }}>
+                                    <Link
+                                        href={{
+                                            pathname: 'heatmap',
+                                            query: {
+                                                activity: aktivitet,
+                                                fom: row.aarStart.format('YYYY-MM-DD'),
+                                                tom: row.aarSlutt.format('YYYY-MM-DD'),
+                                            },
+                                        }}
+                                    >
+                                        <MuiLink underline={'none'}>Heatmap</MuiLink>
+                                    </Link>
+                                    <Typography variant={'body1'}>{row.antall} aktiviter</Typography>
+                                    {row.lengsteTur && (
+                                        <Typography variant={'body1'}>
+                                            <MuiLink
+                                                target="_blank"
+                                                underline="none"
+                                                href={'https://www.strava.com/activities/' + row.lengsteTur.activity_id}
+                                            >
+                                                {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(
+                                                    row.lengsteTur.distance,
+                                                )})`}
+                                            </MuiLink>
+                                        </Typography>
+                                    )}
+
                                     <Typography variant={'body1'}>
-                                        <MuiLink
-                                            target="_blank"
-                                            underline="none"
-                                            href={'https://www.strava.com/activities/' + row.lengsteTur.activity_id}
-                                        >
-                                            {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(
-                                                row.lengsteTur.distance,
-                                            )})`}
-                                        </MuiLink>
+                                        {`Total tid: ${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
                                     </Typography>
-                                )}
-
-                                <Typography variant={'body1'}>
-                                    {`Total tid: ${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
-                                </Typography>
-                                <Typography variant={'body1'}>
-                                    {`Total effektiv tid: ${row.movingTime.valueOf() / BigInt(3600)} timer`}
-                                </Typography>
-                                {!minutterPerKm && (
-                                    <>
-                                        <Typography variant={'body1'}>
-                                            {`Snitt moving speed: ${averageSpeedKmPerHour.toFixed(2)} km/t`}
-                                        </Typography>
-                                        <Typography variant={'body1'}>
-                                            {`Snitt elapsed speed: ${averageElapseSpeedKmPerHour.toFixed(2)} km/t`}
-                                        </Typography>
-                                    </>
-                                )}
-                                {minutterPerKm && (
-                                    <>
-                                        <Typography variant={'body1'}>
-                                            {`Snitt moving speed: ${kmhToPace(averageSpeedKmPerHour)}`}
-                                        </Typography>
-                                        <Typography variant={'body1'}>
-                                            {`Snitt elapsed speed: ${kmhToPace(averageElapseSpeedKmPerHour)} `}
-                                        </Typography>
-                                    </>
-                                )}
-
-                                <Accordion sx={{ pt: 1 }}>
+                                    <Typography variant={'body1'}>
+                                        {`Total effektiv tid: ${row.movingTime.valueOf() / BigInt(3600)} timer`}
+                                    </Typography>
+                                    {!minutterPerKm && (
+                                        <>
+                                            <Typography variant={'body1'}>
+                                                {`Snitt moving speed: ${averageSpeedKmPerHour.toFixed(2)} km/t`}
+                                            </Typography>
+                                            <Typography variant={'body1'}>
+                                                {`Snitt elapsed speed: ${averageElapseSpeedKmPerHour.toFixed(2)} km/t`}
+                                            </Typography>
+                                        </>
+                                    )}
+                                    {minutterPerKm && (
+                                        <>
+                                            <Typography variant={'body1'}>
+                                                {`Snitt moving speed: ${kmhToPace(averageSpeedKmPerHour)}`}
+                                            </Typography>
+                                            <Typography variant={'body1'}>
+                                                {`Snitt elapsed speed: ${kmhToPace(averageElapseSpeedKmPerHour)} `}
+                                            </Typography>
+                                        </>
+                                    )}
+                                </Box>
+                                <Accordion>
                                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                         <Typography>Aktiviteter</Typography>
                                     </AccordionSummary>
