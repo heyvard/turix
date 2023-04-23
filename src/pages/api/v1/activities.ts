@@ -1,10 +1,17 @@
 import { auth } from '../../../auth/authHandler'
 import { ApiHandlerOpts } from '../../../types/apiHandlerOpts'
+import { erMock } from '../../../utils/erMock'
+import { testdata } from '../../../testdata/testdata'
+import { SimpleActivity } from '../../../types/db'
 
-const handler = async function handler(opts: ApiHandlerOpts): Promise<void> {
+const handler = async function handler(opts: ApiHandlerOpts<SimpleActivity[]>): Promise<void> {
     const { res, user, req, client } = opts
     if (!user) {
         res.status(401)
+        return
+    }
+    if (erMock()) {
+        res.status(200).json(testdata)
         return
     }
     const athleteId = req.query.athleteId || user.athlete_id

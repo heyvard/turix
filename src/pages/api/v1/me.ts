@@ -1,7 +1,8 @@
 import { auth } from '../../../auth/authHandler'
 import { ApiHandlerOpts } from '../../../types/apiHandlerOpts'
+import { User } from '../../../types/db'
 
-const handler = async function handler(opts: ApiHandlerOpts): Promise<void> {
+const handler = async function handler(opts: ApiHandlerOpts<User>): Promise<void> {
     const { res, user, jwtPayload, client } = opts
     if (user) {
         res.status(200).json(user)

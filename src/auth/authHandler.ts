@@ -5,6 +5,7 @@ import { User } from '../types/db'
 import { ApiHandlerOpts } from '../types/apiHandlerOpts'
 
 import { verifiserIdToken } from './verifiserIdToken'
+import { erMock } from '../utils/erMock'
 
 let pool: null | Pool
 
@@ -20,6 +21,27 @@ export function getPool() {
 }
 
 export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
+    if (erMock()) {
+        return async (req: NextApiRequest, res: NextApiResponse) => {
+            await fn({
+                req,
+                res,
+                jwtPayload: {},
+                client: null as any,
+                user: {
+                    id: '1',
+                    firebase_user_id: '1',
+                    picture: 'https://www.nav.no',
+                    name: 'Testy',
+                    email: 'adsfdsf',
+                    admin: false,
+                    athlete_id: '1',
+                    active: true,
+                    done: true,
+                } as User,
+            })
+        }
+    }
     return async (req: NextApiRequest, res: NextApiResponse) => {
         try {
             console.log('Starter auth')
@@ -29,7 +51,7 @@ export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
                 res.status(401)
                 return
             }
-            console.log('auht ferdig')
+            console.log('auth ferdig')
 
             const verifisert = await verifiserIdToken(authheader.split(' ')[1])
             if (!verifisert) {

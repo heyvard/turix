@@ -15,13 +15,14 @@ export interface User {
 }
 
 export interface SimpleActivity {
+    username: string
     name: string
     activity_id: string
     distance: number
     start_date: string
     type1: string
     sport_type: string
-    moving_time?: number
-    elapsed_time?: number
+    moving_time?: string
+    elapsed_time?: string
     map_summary_polyline?: string
 }

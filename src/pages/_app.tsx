@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import { Spinner } from '../components/loading/Spinner'
 import Head from 'next/head'
 import TableChartIcon from '@mui/icons-material/TableChart'
+import { erMock } from '../utils/erMock'
 function UserFetchInnlogging(props: { children: React.ReactNode }) {
     const { data: me, isLoading } = UseUser()
     const [user] = useAuthState(getFirebaseAuth())
@@ -93,6 +94,10 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
 }
 
 function UserInnlogging(props: { children: React.ReactNode }) {
+    if (erMock()) {
+        return <>{props.children}</>
+    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [user, loading, error] = useAuthState(getFirebaseAuth())
     if (loading) {
         return (
