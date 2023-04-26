@@ -15,7 +15,7 @@ import { SimpleActivity } from '../../types/db'
 
 type sortering = 'Distanse' | 'Tid' | 'Dato'
 
-export const AktivitetListe = ({ aktiviteter }: { aktiviteter: SimpleActivity[] }) => {
+export const AktivitetListeContent = ({ aktiviteter }: { aktiviteter: SimpleActivity[] }) => {
     const [sortering, setSortering] = React.useState<sortering>('Dato')
 
     const aktivitetene = () => {
@@ -33,37 +33,43 @@ export const AktivitetListe = ({ aktiviteter }: { aktiviteter: SimpleActivity[] 
         return aktiviteter
     }
     return (
+        <>
+            <Select
+                sx={{ mb: 2, height: '2rem' }}
+                value={sortering}
+                label="Sortering"
+                onChange={(e) => setSortering(e.target.value as any)}
+            >
+                <MenuItem value={'Distanse'}>Distanse</MenuItem>
+                <MenuItem value={'Tid'}>Tid</MenuItem>
+                <MenuItem value={'Dato'}>Dato</MenuItem>
+            </Select>
+
+            {aktivitetene().map((a, i) => {
+                return (
+                    <Typography key={i} variant={'body1'}>
+                        <MuiLink
+                            target="_blank"
+                            underline="none"
+                            href={'https://www.strava.com/activities/' + a.activity_id}
+                        >
+                            {`${dayjs(a.start_date).format('DD.MM.YYYY')} ${a.name} (${meterTilKmVisning(a.distance)})`}
+                        </MuiLink>
+                    </Typography>
+                )
+            })}
+        </>
+    )
+}
+
+export const AktivitetListe = ({ aktiviteter }: { aktiviteter: SimpleActivity[] }) => {
+    return (
         <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>Aktiviteter</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Select
-                    sx={{ mb: 2 }}
-                    value={sortering}
-                    label="Sortering"
-                    onChange={(e) => setSortering(e.target.value as any)}
-                >
-                    <MenuItem value={'Distanse'}>Distanse</MenuItem>
-                    <MenuItem value={'Tid'}>Tid</MenuItem>
-                    <MenuItem value={'Dato'}>Dato</MenuItem>
-                </Select>
-
-                {aktivitetene().map((a, i) => {
-                    return (
-                        <Typography key={i} variant={'body1'}>
-                            <MuiLink
-                                target="_blank"
-                                underline="none"
-                                href={'https://www.strava.com/activities/' + a.activity_id}
-                            >
-                                {`${dayjs(a.start_date).format('DD.MM.YYYY')} ${a.name} (${meterTilKmVisning(
-                                    a.distance,
-                                )})`}
-                            </MuiLink>
-                        </Typography>
-                    )
-                })}
+                <AktivitetListeContent aktiviteter={aktiviteter} />
             </AccordionDetails>
         </Accordion>
     )

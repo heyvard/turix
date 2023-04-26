@@ -18,6 +18,7 @@ import { kmhToPace, meterTilKmVisning, nordicSkiEmoji } from '../../utils/distan
 import { aktiviteter } from '../../utils/aktivitetstyper'
 import { Aar, splittTilAar } from './splittTilAar'
 import { AktivitetListe } from './aktivitetListe'
+import { LocationGruppert } from './locationGruppert'
 
 export const YearStats = () => {
     const { data: activities } = UseActivities()
@@ -140,6 +141,7 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                     )}
                 </Box>
                 <AktivitetListe aktiviteter={row.aktiviteter} />
+                <LocationGruppert aktiviteter={row.aktiviteter} />
             </AccordionDetails>
         </Accordion>
     )
