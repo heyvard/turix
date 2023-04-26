@@ -38,6 +38,16 @@ export const YearStats = () => {
         return null
     }
     const aarene = splittTilAar(activities, aktivitet)
+    const alle: Aar = {
+        aarStart: aarene[0].aarStart,
+        aarSlutt: aarene[aarene.length - 1].aarSlutt,
+        distance: aarene.reduce((acc, a) => acc + a.distance, 0),
+        movingTime: BigInt(0),
+        elapsedTime: BigInt(0),
+        antall: aarene.reduce((acc, a) => acc + a.antall, 0),
+        lengsteTur: aarene[0].aktiviteter[0],
+        aktiviteter: activities.filter((a) => aktivitet.includes(a.type1)),
+    }
 
     return (
         <>
@@ -59,6 +69,7 @@ export const YearStats = () => {
                 {aarene.reverse().map((row, i) => (
                     <Year key={i} row={row} aktivitet={aktivitet} />
                 ))}
+                <Year row={alle} aktivitet={aktivitet} />
             </Container>
         </>
     )

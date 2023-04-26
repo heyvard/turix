@@ -24,7 +24,7 @@ const locations: Lokasjon[] = [
     { sted: 'Mobekken', koordinater: [60.022917, 10.800007], kmTerskel: 1 },
     { sted: 'Sandermosen', koordinater: [60.008321, 10.803962], kmTerskel: 1 },
     { sted: 'Mylla', koordinater: [60.241642, 10.601408], kmTerskel: 1 },
-    { sted: 'Linderudkollen', koordinater: [59.971500, 10.812906], kmTerskel: 1 },
+    { sted: 'Linderudkollen', koordinater: [59.9715, 10.812906], kmTerskel: 1 },
     { sted: 'Tingstadjordet', koordinater: [61.146104, 11.329203], kmTerskel: 1 },
     { sted: 'Pellestova', koordinater: [61.22435, 10.539962], kmTerskel: 3 },
 ]
