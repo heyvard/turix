@@ -74,17 +74,15 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
     return (
         <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography sx={{ pr: 1 }}>{aar}</Typography>
-                <Typography
-                    sx={{
-                        textAlign: 'right',
-                        width: '10em',
-                    }}
-                >
-                    {aktivitet.includes('NordicSki') && nordicSkiEmoji(row.distance)}
-                    {aktivitet != 'WeightTraining' && meterTilKmVisning(row.distance)}
-                    {aktivitet == 'WeightTraining' && `${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
-                </Typography>
+                <Box sx={{ justifyContent: 'space-between', display: 'flex', width: 1 }}>
+                    <Typography>{aar}</Typography>
+                    <Typography> {aktivitet.includes('NordicSki') && nordicSkiEmoji(row.distance)}</Typography>
+                    <Typography>
+                        {' '}
+                        {aktivitet != 'WeightTraining' && meterTilKmVisning(row.distance)}
+                        {aktivitet == 'WeightTraining' && `${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
+                    </Typography>
+                </Box>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
                 <Box sx={{ px: 2, pb: 1 }}>

@@ -12,9 +12,6 @@ export function kmhToPace(kmPerHour: number) {
 
 export function nordicSkiEmoji(meter: number) {
     const km = meter / 1000
-    if (km > 1600) {
-        return '⭐🏆🏅🏅 '
-    }
     if (km > 1500) {
         return '⭐🏆🏅 '
     }

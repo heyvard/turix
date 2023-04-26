@@ -10,16 +10,19 @@ import { meterTilKmVisning } from '../../utils/distanceUtils'
 interface Lokasjon {
     sted: string
     koordinater: [number, number]
+    kmTerskel: number
 }
 
 const locations: Lokasjon[] = [
-    { sted: 'Frognerseteren', koordinater: [59.977226, 10.679983] },
-    { sted: 'Sandås', koordinater: [59.954729, 10.846364] },
-    { sted: 'Venabygdsfjellet', koordinater: [61.633161, 10.052135] },
-    { sted: 'Trollvann', koordinater: [59.962437, 10.804558] },
-    { sted: 'Solemskogen', koordinater: [59.979281, 10.818086] },
-    { sted: 'Sognsvann', koordinater: [59.969086, 10.728309] },
-    { sted: 'Movatn', koordinater: [60.038769, 10.815361] },
+    { sted: 'Frognerseteren', koordinater: [59.977226, 10.679983], kmTerskel: 0.5 },
+    { sted: 'Sandås', koordinater: [59.954729, 10.846364], kmTerskel: 0.5 },
+    { sted: 'Venabygdsfjellet', koordinater: [61.633161, 10.052135], kmTerskel: 20 },
+    { sted: 'Trollvann', koordinater: [59.962437, 10.804558], kmTerskel: 0.5 },
+    { sted: 'Solemskogen', koordinater: [59.979281, 10.818086], kmTerskel: 0.5 },
+    { sted: 'Sognsvann', koordinater: [59.969086, 10.728309], kmTerskel: 0.5 },
+    { sted: 'Movatn', koordinater: [60.038769, 10.815361], kmTerskel: 1 },
+    { sted: 'Movatn', koordinater: [60.038769, 10.815361], kmTerskel: 1 },
+    { sted: 'Pellestova', koordinater: [61.22435, 10.539962], kmTerskel: 3 },
 ]
 
 export const LocationGruppert = ({ aktiviteter }: { aktiviteter: SimpleActivity[] }) => {
@@ -57,7 +60,7 @@ interface GroupedActivities {
     [location: string]: SimpleActivity[]
 }
 
-function groupActivitiesByLocation(activities: SimpleActivity[], threshold = 0.5): GroupedActivities {
+function groupActivitiesByLocation(activities: SimpleActivity[]): GroupedActivities {
     const groupedActivities: GroupedActivities = {}
 
     activities.forEach((activity) => {
@@ -68,7 +71,7 @@ function groupActivitiesByLocation(activities: SimpleActivity[], threshold = 0.5
             let foundLocation = false
 
             for (const loc of locations) {
-                if (isNear(startCoord, loc.koordinater, threshold)) {
+                if (isNear(startCoord, loc.koordinater, loc.kmTerskel)) {
                     if (!groupedActivities[loc.sted]) {
                         groupedActivities[loc.sted] = []
                     }
