@@ -7,7 +7,7 @@ import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import { UseActivities } from '../queries/useActivities'
 import { Syncing } from '../components/syncing'
-import { YearStats } from '../components/yearStats'
+import { YearStats } from '../components/yearstats/yearStats'
 
 const Home: NextPage = () => {
     const { data: megselv } = UseUser()
@@ -23,8 +23,8 @@ const Home: NextPage = () => {
     let href = `http://www.strava.com/oauth/authorize?client_id=${clientId}&state=${megselv.id}&response_type=code&redirect_uri=${cbUrl}&approval_prompt=force&scope=activity:read`
     return (
         <>
-            <Container maxWidth="md" sx={{ mt: 6 }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Container maxWidth="md" sx={{ mt: 6, width: 1 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 1 }}>
                     <Typography variant="h4" component="h1" gutterBottom>
                         Hei {megselv.name} 👋
                     </Typography>
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
                             Koble til Strava
                         </Button>
                     )}
-                    <Box sx={{ mt: 4 }}>
+                    <Box sx={{ mt: 4, width: 1 }}>
                         <YearStats />
                     </Box>
                 </Box>

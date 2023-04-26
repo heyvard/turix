@@ -146,7 +146,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Head>
             <Theme>
                 <QueryClientProvider client={queryClient}>
-                    <Box sx={{ pb: 7 }}>
+                    <Box sx={{ pb: 7, width: 1 }}>
                         <UserInnlogging>
                             <Component {...pageProps} />
                         </UserInnlogging>
