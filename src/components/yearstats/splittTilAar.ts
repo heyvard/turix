@@ -4,16 +4,17 @@ import dayjs, { Dayjs } from 'dayjs'
 export interface Aar {
     distance: number
     antall: number
-    aarStart: Dayjs
-    aarSlutt: Dayjs
+    start: Dayjs
+    slutt: Dayjs
     movingTime: BigInt
     elapsedTime: BigInt
     lengsteTur: SimpleActivity
     aktiviteter: SimpleActivity[]
+    total: boolean
 }
 
-export function splittTilAar(activities: SimpleActivity[], aktivitet: string): Aar[] {
-    const langrenn = activities.filter((a) => aktivitet.includes(a.type1))
+export function splittTilAar(activities: SimpleActivity[], aktivitet: string): { aar: Aar[]; total: Aar } {
+    const filtrerteAktiviteter = activities.filter((a) => aktivitet.includes(a.type1))
 
     const baseAarStart = aktivitet.includes('NordicSki') ? dayjs('1998-07-01') : dayjs('1998-01-01')
 
@@ -22,7 +23,7 @@ export function splittTilAar(activities: SimpleActivity[], aktivitet: string): A
     do {
         const nesteAar = aarStart.add(1, 'year')
 
-        const aktiviter = langrenn.filter((a) => {
+        const aktiviter = filtrerteAktiviteter.filter((a) => {
             let date = dayjs(a.start_date)
             return date.isAfter(aarStart) && date.isBefore(nesteAar)
         })
@@ -44,17 +45,46 @@ export function splittTilAar(activities: SimpleActivity[], aktivitet: string): A
             const aaret: Aar = {
                 antall,
                 distance: totalDistanse,
-                aarSlutt: nesteAar,
-                aarStart: aarStart,
+                slutt: nesteAar,
+                start: aarStart,
                 elapsedTime: totalElapsedTid,
                 movingTime: totalMovingTid,
                 lengsteTur,
                 aktiviteter: aktiviter.reverse(),
+                total: false,
             }
 
             aarene.push(aaret)
         }
         aarStart = nesteAar
     } while (aarStart.year() <= dayjs().year())
-    return aarene
+
+    const skapTotal = () => {
+        const totalElapsedTid = filtrerteAktiviteter
+            .map((a) => BigInt(a.elapsed_time ?? 0))
+            .reduce((partialSum, a) => partialSum + a, BigInt(0))
+
+        const totalMovingTid = filtrerteAktiviteter
+            .map((a) => BigInt(a.moving_time ?? 0))
+            .reduce((partialSum, a) => partialSum + a, BigInt(0))
+
+        const sortert = filtrerteAktiviteter.sort((a, b) => a.distance - b.distance) // b - a for reverse sort
+        const lengsteTur = sortert[filtrerteAktiviteter.length - 1]
+
+        return {
+            total: true,
+            start: aarene[0].start,
+            slutt: aarene[aarene.length - 1].start,
+            distance: aarene.reduce((acc, a) => acc + a.distance, 0),
+            movingTime: totalMovingTid,
+            elapsedTime: totalElapsedTid,
+            antall: aarene.reduce((acc, a) => acc + a.antall, 0),
+            lengsteTur: lengsteTur,
+            aktiviteter: filtrerteAktiviteter.filter((a) => aktivitet.includes(a.type1)),
+        }
+    }
+    return {
+        aar: aarene,
+        total: skapTotal(),
+    }
 }

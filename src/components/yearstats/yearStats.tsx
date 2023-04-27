@@ -38,16 +38,6 @@ export const YearStats = () => {
         return null
     }
     const aarene = splittTilAar(activities, aktivitet)
-    const alle: Aar = {
-        aarStart: aarene[0].aarStart,
-        aarSlutt: aarene[aarene.length - 1].aarSlutt,
-        distance: aarene.reduce((acc, a) => acc + a.distance, 0),
-        movingTime: BigInt(0),
-        elapsedTime: BigInt(0),
-        antall: aarene.reduce((acc, a) => acc + a.antall, 0),
-        lengsteTur: aarene[0].aktiviteter[0],
-        aktiviteter: activities.filter((a) => aktivitet.includes(a.type1)),
-    }
 
     return (
         <>
@@ -66,17 +56,22 @@ export const YearStats = () => {
                         )
                     })}
                 </Select>
-                {aarene.reverse().map((row, i) => (
+                {aarene.aar.reverse().map((row, i) => (
                     <Year key={i} row={row} aktivitet={aktivitet} />
                 ))}
-                <Year row={alle} aktivitet={aktivitet} />
+                <Year row={aarene.total} aktivitet={aktivitet} />
             </Container>
         </>
     )
 }
 
 const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
-    const aar = aktivitet == 'NordicSki' ? `${row.aarStart.year()}-${row.aarSlutt.year()}` : row.aarStart.year()
+    const tittel = () => {
+        if (row.total) {
+            return 'Totalt'
+        }
+        return aktivitet == 'NordicSki' ? `${row.start.year()}-${row.slutt.year()}` : row.start.year()
+    }
 
     const averageSpeedKmPerHour = (row.distance / 1000 / Number(row.movingTime.valueOf())) * 3600
     const averageElapseSpeedKmPerHour = (row.distance / 1000 / Number(row.elapsedTime.valueOf())) * 3600
@@ -86,10 +81,12 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
         <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Box sx={{ justifyContent: 'space-between', display: 'flex', width: 1 }}>
-                    <Typography>{aar}</Typography>
-                    <Typography> {aktivitet.includes('NordicSki') && nordicSkiEmoji(row.distance)}</Typography>
+                    <Typography>{tittel()}</Typography>
                     <Typography>
                         {' '}
+                        {aktivitet.includes('NordicSki') && !row.total && nordicSkiEmoji(row.distance)}
+                    </Typography>
+                    <Typography>
                         {aktivitet != 'WeightTraining' && meterTilKmVisning(row.distance)}
                         {aktivitet == 'WeightTraining' && `${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
                     </Typography>
@@ -102,8 +99,8 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                             pathname: 'heatmap',
                             query: {
                                 activity: aktivitet,
-                                fom: row.aarStart.format('YYYY-MM-DD'),
-                                tom: row.aarSlutt.format('YYYY-MM-DD'),
+                                fom: row.start.format('YYYY-MM-DD'),
+                                tom: row.slutt.format('YYYY-MM-DD'),
                             },
                         }}
                     >
