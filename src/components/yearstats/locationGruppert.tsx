@@ -27,6 +27,11 @@ const locations: Lokasjon[] = [
     { sted: 'Linderudkollen', koordinater: [59.9715, 10.812906], kmTerskel: 1 },
     { sted: 'Tingstadjordet', koordinater: [61.146104, 11.329203], kmTerskel: 1 },
     { sted: 'Pellestova', koordinater: [61.22435, 10.539962], kmTerskel: 3 },
+    { sted: 'Girona', koordinater: [41.97533, 2.81695], kmTerskel: 10 },
+    { sted: 'Gran Canaria', koordinater: [27.808816, -15.705759], kmTerskel: 20 },
+    { sted: 'Tenerife', koordinater: [28.085547, -16.709235], kmTerskel: 20 },
+    { sted: 'La Gomera', koordinater: [28.097091, -17.11011], kmTerskel: 5 },
+    { sted: "Côte d'Azur", koordinater: [43.657138, 7.167585], kmTerskel: 5 },
 ]
 
 export const LocationGruppert = ({ aktiviteter }: { aktiviteter: SimpleActivity[] }) => {
