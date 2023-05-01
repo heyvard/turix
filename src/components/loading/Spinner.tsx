@@ -1,9 +1,12 @@
-import { Box, CircularProgress } from '@mui/material'
+import { Spinner as SpinnerFb } from "flowbite-react";
 
 export const Spinner = () => {
     return (
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
-            <CircularProgress />
-        </Box>
-    )
-}
+        <div className="flex justify-center items-center min-h-screen">
+            <SpinnerFb
+                aria-label="Extra large spinner example"
+                size="xl"
+            />
+        </div>
+    );
+};
