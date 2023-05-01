@@ -16,6 +16,9 @@ import { Spinner } from '../components/loading/Spinner'
 import Head from 'next/head'
 import TableChartIcon from '@mui/icons-material/TableChart'
 import { erMock } from '../utils/erMock'
+
+import '../styles/globals.css'
+
 function UserFetchInnlogging(props: { children: React.ReactNode }) {
     const { data: me, isLoading } = UseUser()
     const [user] = useAuthState(getFirebaseAuth())
