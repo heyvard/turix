@@ -20,7 +20,7 @@
         "@mapbox/polyline": "^1.1.1",
         "@mui/icons-material": "^5.11.0",
         "@mui/lab": "^5.0.0-alpha.118",
-        "@mui/material": "^5.11.7",
+        "@mui/material": "^5.13.2",
         "@mui/x-date-pickers": "^5.0.19",
         "@next/env": "^13.1.6",
         "@turf/turf": "^6.5.0",
