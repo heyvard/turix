@@ -37,6 +37,9 @@ export const YearStats = () => {
     if (!activities) {
         return null
     }
+    if (activities.length == 0) {
+        return <Typography>Har ikke hentet noen aktiviteter enda</Typography>
+    }
     const aarene = splittTilAar(activities, aktivitet)
 
     return (

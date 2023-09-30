@@ -1,7 +1,5 @@
-
-
 /* tailwind.config.js */
-const path = require('path');
+const path = require('path')
 
 module.exports = {
     content: [
@@ -13,4 +11,4 @@ module.exports = {
         extend: {},
     },
     plugins: [require('flowbite/plugin')],
-};
+}
