@@ -2,8 +2,9 @@ import React from 'react'
 import { Container } from '@mui/system'
 import { BottomNavigation, BottomNavigationAction, Card, CardContent, Paper, Typography } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home'
-import StyledFirebaseAuth from '../auth/StyledFirebaseAuth'
 import { GoogleAuthProvider, EmailAuthProvider } from 'firebase/auth'
+
+import StyledFirebaseAuth from '../auth/StyledFirebaseAuth'
 
 // Configure FirebaseUI.
 const uiConfig = {
@@ -22,7 +23,7 @@ export function SignInScreen() {
                 {isFacebookInAppBrowser && (
                     <Card sx={{ mt: 1 }}>
                         <CardContent>
-                            <Typography variant="subtitle2" align={'center'}>
+                            <Typography variant="subtitle2" align="center">
                                 For å logge på må du åpne denne siden utenfor facebook messenger, i vanlig browser.
                             </Typography>
                         </CardContent>

@@ -3,7 +3,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 const Home: NextPage = () => {
     return (
-        <Html lang={'no'}>
+        <Html lang="no">
             <Head>
                 <link
                     rel="stylesheet"

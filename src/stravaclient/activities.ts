@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+
 import { Activity } from '../types/strava'
 
 interface Opts {
@@ -9,7 +10,7 @@ interface Opts {
 }
 
 export async function getActivites(opts: Opts) {
-    let url = `https://www.strava.com/api/v3/athlete/activities?per_page=${opts.per_page}&page=${opts.page}`
+    const url = `https://www.strava.com/api/v3/athlete/activities?per_page=${opts.per_page}&page=${opts.page}`
     const response = await fetch(url, { method: 'GET', headers: { authorization: `Bearer ${opts.accessToken}` } })
     return (await response.json()) as Activity[]
 }
@@ -20,7 +21,7 @@ interface GetActivityOpts {
 }
 
 export async function getActivity(opts: GetActivityOpts) {
-    let url = `https://www.strava.com/api/v3/activities/${opts.activityId}`
+    const url = `https://www.strava.com/api/v3/activities/${opts.activityId}`
     const response = await fetch(url, { method: 'GET', headers: { authorization: `Bearer ${opts.accessToken}` } })
     return (await response.json()) as Activity
 }

@@ -1,5 +1,6 @@
-import { User } from '../types/db'
 import { PoolClient } from 'pg'
+
+import { User } from '../types/db'
 import { hentToken } from '../stravaclient/token'
 
 export async function hentEllerOppdaterToken(athleteId: string, client: PoolClient): Promise<User> {
@@ -32,5 +33,5 @@ export async function hentEllerOppdaterToken(athleteId: string, client: PoolClie
         [brukeren.id, oppdatert.expires_at, oppdatert.refresh_token, oppdatert.access_token],
     )
 
-    return (await hentBrukeren())!!
+    return (await hentBrukeren())!
 }

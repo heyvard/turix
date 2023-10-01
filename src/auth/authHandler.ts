@@ -3,9 +3,9 @@ import { Pool, PoolClient } from 'pg'
 
 import { User } from '../types/db'
 import { ApiHandlerOpts } from '../types/apiHandlerOpts'
+import { erMock } from '../utils/erMock'
 
 import { verifiserIdToken } from './verifiserIdToken'
-import { erMock } from '../utils/erMock'
 
 let pool: null | Pool
 

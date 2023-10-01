@@ -1,4 +1,5 @@
 import { PoolClient } from 'pg'
+
 import { User } from '../types/db'
 import { Activity } from '../types/strava'
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { UseActivities } from '../../queries/useActivities'
 import {
     Accordion,
     AccordionDetails,
@@ -12,10 +11,12 @@ import {
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Link from 'next/link'
-
 import { Typography } from '@mui/material'
+
+import { UseActivities } from '../../queries/useActivities'
 import { kmhToPace, meterTilKmVisning, nordicSkiEmoji } from '../../utils/distanceUtils'
 import { aktiviteter } from '../../utils/aktivitetstyper'
+
 import { Aar, splittTilAar } from './splittTilAar'
 import { AktivitetListe } from './aktivitetListe'
 import { LocationGruppert } from './locationGruppert'
@@ -107,11 +108,11 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                             },
                         }}
                     >
-                        <MuiLink underline={'none'}>Heatmap</MuiLink>
+                        <MuiLink underline="none">Heatmap</MuiLink>
                     </Link>
-                    <Typography variant={'body1'}>{row.antall} aktiviter</Typography>
+                    <Typography variant="body1">{row.antall} aktiviter</Typography>
                     {row.lengsteTur && (
-                        <Typography variant={'body1'}>
+                        <Typography variant="body1">
                             <MuiLink
                                 target="_blank"
                                 underline="none"
@@ -122,28 +123,28 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                         </Typography>
                     )}
 
-                    <Typography variant={'body1'}>
+                    <Typography variant="body1">
                         {`Total tid: ${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
                     </Typography>
-                    <Typography variant={'body1'}>
+                    <Typography variant="body1">
                         {`Total effektiv tid: ${row.movingTime.valueOf() / BigInt(3600)} timer`}
                     </Typography>
                     {!minutterPerKm && (
                         <>
-                            <Typography variant={'body1'}>
+                            <Typography variant="body1">
                                 {`Snitt moving speed: ${averageSpeedKmPerHour.toFixed(2)} km/t`}
                             </Typography>
-                            <Typography variant={'body1'}>
+                            <Typography variant="body1">
                                 {`Snitt elapsed speed: ${averageElapseSpeedKmPerHour.toFixed(2)} km/t`}
                             </Typography>
                         </>
                     )}
                     {minutterPerKm && (
                         <>
-                            <Typography variant={'body1'}>
+                            <Typography variant="body1">
                                 {`Snitt moving speed: ${kmhToPace(averageSpeedKmPerHour)}`}
                             </Typography>
-                            <Typography variant={'body1'}>
+                            <Typography variant="body1">
                                 {`Snitt elapsed speed: ${kmhToPace(averageElapseSpeedKmPerHour)} `}
                             </Typography>
                         </>

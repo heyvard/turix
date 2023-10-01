@@ -33,7 +33,7 @@ const handler = async function handler(opts: ApiHandlerOpts<SyncResponse | strin
         }
         return 1
     }
-    let minPAge = page()
+    const minPAge = page()
     const activities = await getActivites({
         userId: user.id,
         accessToken: user.access_token!,

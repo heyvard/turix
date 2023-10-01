@@ -1,12 +1,8 @@
-import { Spinner } from '../components/loading/Spinner'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { UseUser } from '../queries/useUser'
-import { UseActivities } from '../queries/useActivities'
 import { MapContainer, Polyline, Popup, TileLayer } from 'react-leaflet'
 import { LatLng } from 'leaflet'
 import dayjs from 'dayjs'
-
 import polyline from '@mapbox/polyline'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -16,6 +12,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { MenuItem, Select, Link as MuiLink, TextField } from '@mui/material'
+
+import { UseActivities } from '../queries/useActivities'
+import { UseUser } from '../queries/useUser'
+import { Spinner } from '../components/loading/Spinner'
 import { aktiviteter } from '../utils/aktivitetstyper'
 import { meterTilKmVisning } from '../utils/distanceUtils'
 
@@ -39,25 +39,25 @@ const Heatmap = () => {
     const langrennUser1 = activities
         .filter((a) => a.type1 == aktiviteten)
         .filter((a) => {
-            let date = dayjs(a.start_date)
+            const date = dayjs(a.start_date)
             return date.isAfter(dayjs(fomDato).startOf('day'))
         })
         .filter((a) => {
-            let date = dayjs(a.start_date)
+            const date = dayjs(a.start_date)
             return date.isBefore(tomDato.endOf('day'))
         })
         .map((a) => {
             const activity_polyline = a.map_summary_polyline
             const activity_name = a.name
             return {
-                activityPositions: polyline.decode(activity_polyline!!),
+                activityPositions: polyline.decode(activity_polyline!),
                 activityName: activity_name,
                 id: a.activity_id,
                 distance: a.distance,
             }
         })
 
-    let tittel = `${aktiviteten} i perioden ${fomDato.format('DD.MM.YYYY')} - ${tomDato.format('DD.MM.YYYY')}`
+    const tittel = `${aktiviteten} i perioden ${fomDato.format('DD.MM.YYYY')} - ${tomDato.format('DD.MM.YYYY')}`
     return (
         <>
             <Accordion>
@@ -107,7 +107,7 @@ const Heatmap = () => {
                     />
                     {langrennUser1.map((activity, i) => (
                         <Polyline
-                            color={'red'}
+                            color="red"
                             smoothFactor={0.3}
                             weight={5}
                             fillOpacity={0.1}
@@ -123,7 +123,7 @@ const Heatmap = () => {
                                 >
                                     {activity.activityName}
                                 </MuiLink>
-                                <Typography variant={'body2'} style={{ margin: 0 }}>
+                                <Typography variant="body2" style={{ margin: 0 }}>
                                     {meterTilKmVisning(activity.distance)}
                                 </Typography>
                             </Popup>

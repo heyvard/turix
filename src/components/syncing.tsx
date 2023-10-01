@@ -1,7 +1,8 @@
-import { UseUser } from '../queries/useUser'
 import React from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useAuthState } from 'react-firebase-hooks/auth'
+
+import { UseUser } from '../queries/useUser'
 import { getFirebaseAuth } from '../auth/clientApp'
 import { SyncResponse } from '../pages/api/v1/sync'
 import { UseActivities } from '../queries/useActivities'
@@ -16,7 +17,7 @@ export const Syncing = () => {
         ['sync'],
         async () => {
             const idtoken = await user?.getIdToken()
-            let responsePromise = await fetch('/api/v1/sync', {
+            const responsePromise = await fetch('/api/v1/sync', {
                 method: 'GET',
                 headers: { Authorization: `Bearer ${idtoken}` },
             })

@@ -1,8 +1,8 @@
 import { JWTPayload } from 'jose'
 import { PoolClient } from 'pg'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 import { User } from './db'
-import { NextApiRequest, NextApiResponse } from 'next'
 
 export interface ApiHandlerOpts<T = any> {
     req: NextApiRequest

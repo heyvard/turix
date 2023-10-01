@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import 'firebaseui/dist/firebaseui.css'
 import { auth } from 'firebaseui'
+
 import { getFirebaseAuth } from './clientApp'
 const firebaseApp = getFirebaseAuth()
 
@@ -25,6 +26,7 @@ const StyledFirebaseAuth = ({ uiConfig, className, uiCallback }: Props) => {
     useEffect(() => {
         // Firebase UI only works on the Client. So we're loading the package only after
         // the component has mounted, so that this works when doing server-side rendering.
+        // eslint-disable-next-line
         setFirebaseui(require('firebaseui'))
     }, [])
 
@@ -45,6 +47,7 @@ const StyledFirebaseAuth = ({ uiConfig, className, uiCallback }: Props) => {
         if (uiCallback) uiCallback(firebaseUiWidget)
 
         // Render the firebaseUi Widget.
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         firebaseUiWidget.start(elementRef.current, uiConfig)
 

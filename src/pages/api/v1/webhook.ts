@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+
 import { getPool } from '../../../auth/authHandler'
 import { hentEllerOppdaterToken } from '../../../auth/hentEllerOppdaterToken'
 import { getActivity } from '../../../stravaclient/activities'
@@ -47,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (body.aspect_type == 'update' || body.aspect_type == 'create') {
             const user = await hentEllerOppdaterToken(`${body.owner_id}`, client)
             const activity = await getActivity({
-                accessToken: user.access_token!!,
+                accessToken: user.access_token!,
                 activityId: `${body.object_id}`,
             })
             await lagreActivity(client, user, activity)

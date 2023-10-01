@@ -1,13 +1,14 @@
-import { SimpleActivity } from '../../types/db'
 import dayjs, { Dayjs } from 'dayjs'
+
+import { SimpleActivity } from '../../types/db'
 
 export interface Aar {
     distance: number
     antall: number
     start: Dayjs
     slutt: Dayjs
-    movingTime: BigInt
-    elapsedTime: BigInt
+    movingTime: bigint
+    elapsedTime: bigint
     lengsteTur: SimpleActivity
     aktiviteter: SimpleActivity[]
     total: boolean
@@ -19,12 +20,12 @@ export function splittTilAar(activities: SimpleActivity[], aktivitet: string): {
     const baseAarStart = aktivitet.includes('NordicSki') ? dayjs('1998-07-01') : dayjs('1998-01-01')
 
     const aarene = [] as Aar[]
-    var aarStart = baseAarStart
+    let aarStart = baseAarStart
     do {
         const nesteAar = aarStart.add(1, 'year')
 
         const aktiviter = filtrerteAktiviteter.filter((a) => {
-            let date = dayjs(a.start_date)
+            const date = dayjs(a.start_date)
             return date.isAfter(aarStart) && date.isBefore(nesteAar)
         })
         if (aktiviter.length > 0) {

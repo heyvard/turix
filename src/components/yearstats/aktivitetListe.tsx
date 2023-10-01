@@ -9,8 +9,9 @@ import {
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import dayjs from 'dayjs'
-import { meterTilKmVisning } from '../../utils/distanceUtils'
 import React from 'react'
+
+import { meterTilKmVisning } from '../../utils/distanceUtils'
 import { SimpleActivity } from '../../types/db'
 
 type sortering = 'Distanse' | 'Tid' | 'Dato'
@@ -40,14 +41,14 @@ export const AktivitetListeContent = ({ aktiviteter }: { aktiviteter: SimpleActi
                 label="Sortering"
                 onChange={(e) => setSortering(e.target.value as any)}
             >
-                <MenuItem value={'Distanse'}>Distanse</MenuItem>
-                <MenuItem value={'Tid'}>Tid</MenuItem>
-                <MenuItem value={'Dato'}>Dato</MenuItem>
+                <MenuItem value="Distanse">Distanse</MenuItem>
+                <MenuItem value="Tid">Tid</MenuItem>
+                <MenuItem value="Dato">Dato</MenuItem>
             </Select>
 
             {aktivitetene().map((a, i) => {
                 return (
-                    <Typography key={i} variant={'body1'}>
+                    <Typography key={i} variant="body1">
                         <MuiLink
                             target="_blank"
                             underline="none"

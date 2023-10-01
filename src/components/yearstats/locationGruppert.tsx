@@ -1,11 +1,13 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import React from 'react'
-import { SimpleActivity } from '../../types/db'
 import polyline from '@mapbox/polyline'
 import { point, distance } from '@turf/turf'
-import { AktivitetListeContent } from './aktivitetListe'
+
+import { SimpleActivity } from '../../types/db'
 import { meterTilKmVisning } from '../../utils/distanceUtils'
+
+import { AktivitetListeContent } from './aktivitetListe'
 
 interface Lokasjon {
     sted: string

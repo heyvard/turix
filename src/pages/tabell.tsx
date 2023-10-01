@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
-
 import { Container, Grid, Link as MuiLink } from '@mui/material'
+import React from 'react'
+import MUIDataTable from 'mui-datatables'
+import dayjs from 'dayjs'
+
 import { UseUser } from '../queries/useUser'
 import { Spinner } from '../components/loading/Spinner'
-import React from 'react'
 import { UseActivities } from '../queries/useActivities'
-import MUIDataTable from 'mui-datatables'
 import { meterTilKmVisning } from '../utils/distanceUtils'
-import dayjs from 'dayjs'
 
 const Tabell: NextPage = () => {
     const { data: megselv } = UseUser()
@@ -35,7 +35,7 @@ const Tabell: NextPage = () => {
                 <Grid container justifyContent="center">
                     <Grid item xs={12}>
                         <MUIDataTable
-                            title={'Aktiviteter'}
+                            title="Aktiviteter"
                             data={data}
                             options={{
                                 selectableRows: 'none',
