@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Container } from '@mui/system'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 import { UseUser } from '../queries/useUser'
@@ -8,6 +8,7 @@ import { Spinner } from '../components/loading/Spinner'
 import { UseActivities } from '../queries/useActivities'
 import { Syncing } from '../components/syncing'
 import { YearStats } from '../components/yearstats/yearStats'
+import { connectWithStrva } from '../components/stravaknapp'
 
 const Home: NextPage = () => {
     const { data: megselv } = UseUser()
@@ -29,11 +30,7 @@ const Home: NextPage = () => {
                         Hei {megselv.name} 👋
                     </Typography>
                     <Syncing />
-                    {!megselv.athlete_id && (
-                        <Button variant="contained" color="primary" sx={{ mt: 2 }} href={href}>
-                            Koble til Strava
-                        </Button>
-                    )}
+                    {!megselv.athlete_id && <a href={href}>{connectWithStrva}</a>}
                     <Box sx={{ mt: 4, width: 1 }}>
                         <YearStats />
                     </Box>

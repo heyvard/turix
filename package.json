@@ -3,7 +3,8 @@
     "version": "0.1.1",
     "private": true,
     "scripts": {
-        "dev": "NEXT_PUBLIC_MOCK=true next dev",
+        "local": "NEXT_PUBLIC_MOCK=true next dev",
+        "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "migrate": "knex migrate:latest",
