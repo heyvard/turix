@@ -10,7 +10,7 @@ export const connectWithStrva = (
         <title>btn_strava_connectwith_orange</title>
         <desc>Created with Sketch.</desc>
         <defs></defs>
-        <g id="Strava-Button_outlined" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Strava-Button_outlined" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g id="btn_strava_connectwith_orange">
                 <rect id="button-bg" fill="#FC4C02" x="4" y="4" width="185" height="40" rx="2"></rect>
                 <path
