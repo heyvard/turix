@@ -1,4 +1,4 @@
-name: Betpool 2022 *GHA flyt
+name: Stats og maps GHA flyt
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -10,10 +10,10 @@ jobs:
     name: Bygg, test og publiser docker image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
       - run: npm ci
       - name: Eslint
@@ -23,11 +23,11 @@ jobs:
 
   deploy-prod:
     needs: lint-test
-    if: github.ref_name == 'master'
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     concurrency: deploy-prod
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
