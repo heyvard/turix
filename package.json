@@ -27,7 +27,7 @@
         "@turf/turf": "^6.5.0",
         "array-shuffle": "^3.0.0",
         "dayjs": "^1.11.10",
-        "firebase": "^10.4.0",
+        "firebase": "^10.8.0",
         "firebaseui": "^6.1.0",
         "flowbite": "^1.8.1",
         "flowbite-react": "^0.6.3",
