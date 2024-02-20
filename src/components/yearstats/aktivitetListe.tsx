@@ -49,13 +49,18 @@ export const AktivitetListeContent = ({ aktiviteter }: { aktiviteter: SimpleActi
             {aktivitetene().map((a, i) => {
                 return (
                     <Typography key={i} variant="body1">
-                        <MuiLink
-                            target="_blank"
-                            underline="none"
-                            href={'https://www.strava.com/activities/' + a.activity_id}
-                        >
-                            {`${dayjs(a.start_date).format('DD.MM.YYYY')} ${a.name} (${meterTilKmVisning(a.distance)})`}
-                        </MuiLink>
+                        {`${dayjs(a.start_date).format('DD.MM.YYYY')} ${a.name} (${meterTilKmVisning(a.distance)})`}
+
+                        <div style={{ marginBottom: '10px' }}>
+                            <MuiLink
+                                target="_blank"
+                                underline="none"
+                                style={{ color: '#FC4C02', fontSize: '14px' }}
+                                href={'https://www.strava.com/activities/' + a.activity_id}
+                            >
+                                View on Strava
+                            </MuiLink>
+                        </div>
                     </Typography>
                 )
             })}

@@ -10,7 +10,6 @@ import {
     Select,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Link from 'next/link'
 import { Typography } from '@mui/material'
 
 import { UseActivities } from '../../queries/useActivities'
@@ -98,7 +97,7 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
                 <Box sx={{ px: 2, pb: 1 }}>
-                    <Link
+                    {/*  <Link
                         href={{
                             pathname: 'heatmap',
                             query: {
@@ -109,16 +108,19 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                         }}
                     >
                         <MuiLink underline="none">Heatmap</MuiLink>
-                    </Link>
+                    </Link>*/}
                     <Typography variant="body1">{row.antall} aktiviter</Typography>
                     {row.lengsteTur && (
                         <Typography variant="body1">
+                            {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(row.lengsteTur.distance)})`}
+
                             <MuiLink
                                 target="_blank"
                                 underline="none"
+                                style={{ color: '#FC4C02', fontSize: '14px', display: 'block', marginBottom: '5px' }}
                                 href={'https://www.strava.com/activities/' + row.lengsteTur.activity_id}
                             >
-                                {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(row.lengsteTur.distance)})`}
+                                View on Strava
                             </MuiLink>
                         </Typography>
                     )}
