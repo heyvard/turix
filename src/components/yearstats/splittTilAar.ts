@@ -14,7 +14,7 @@ export interface Aar {
     total: boolean
 }
 
-export function splittTilAar(activities: SimpleActivity[], aktivitet: string): { aar: Aar[]; total: Aar } {
+export function splittTilAar(activities: SimpleActivity[], aktivitet: string): { aar: Aar[]; total: Aar | null } {
     const filtrerteAktiviteter = activities.filter((a) => aktivitet.includes(a.type1))
 
     const baseAarStart = aktivitet.includes('NordicSki') ? dayjs('1998-07-01') : dayjs('1998-01-01')
@@ -71,7 +71,9 @@ export function splittTilAar(activities: SimpleActivity[], aktivitet: string): {
 
         const sortert = filtrerteAktiviteter.sort((a, b) => a.distance - b.distance) // b - a for reverse sort
         const lengsteTur = sortert[filtrerteAktiviteter.length - 1]
-
+        if (aarene.length == 0) {
+            return null
+        }
         return {
             total: true,
             start: aarene[0].start,

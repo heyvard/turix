@@ -63,7 +63,7 @@ export const YearStats = () => {
                 {aarene.aar.reverse().map((row, i) => (
                     <Year key={i} row={row} aktivitet={aktivitet} />
                 ))}
-                <Year row={aarene.total} aktivitet={aktivitet} />
+                {aarene.total && <Year row={aarene.total} aktivitet={aktivitet} />}
             </Container>
         </>
     )
