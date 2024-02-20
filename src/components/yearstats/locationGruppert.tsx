@@ -40,7 +40,7 @@ export const LocationGruppert = ({ aktiviteter }: { aktiviteter: SimpleActivity[
     return (
         <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>Aktivteter per område</Typography>
+                <Typography>Aktiviteter per område</Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
                 {Object.keys(grupperte).map((sted) => {
