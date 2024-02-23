@@ -17,7 +17,7 @@ import { kmhToPace, meterTilKmVisning, nordicSkiEmoji } from '../../utils/distan
 import { aktiviteter } from '../../utils/aktivitetstyper'
 
 import { Aar, splittTilAar } from './splittTilAar'
-import { AktivitetListe } from './aktivitetListe'
+import { AktivitetListe, AktivitetListeContent } from './aktivitetListe'
 import { LocationGruppert } from './locationGruppert'
 
 export const YearStats = () => {
@@ -154,6 +154,18 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                 </Box>
                 <AktivitetListe aktiviteter={row.aktiviteter} />
                 <LocationGruppert aktiviteter={row.aktiviteter} />
+                {row.lengsteUke && (
+                    <Accordion>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            {`Lengste uke: Ukenummer ${row.lengsteUke.week} (${meterTilKmVisning(
+                                row.lengsteUke.totalDistance,
+                            )})`}
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <AktivitetListeContent aktiviteter={row.lengsteUke.activities} />
+                        </AccordionDetails>
+                    </Accordion>
+                )}
             </AccordionDetails>
         </Accordion>
     )
