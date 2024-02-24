@@ -1,10 +1,10 @@
 import dayjs, { Dayjs } from 'dayjs'
 import { groupBy, sumBy } from 'lodash'
-import weekOfYear from 'dayjs/plugin/weekOfYear'
+import isoWeek from 'dayjs/plugin/isoWeek'
 
 import { SimpleActivity } from '../../types/db'
 
-dayjs.extend(weekOfYear)
+dayjs.extend(isoWeek)
 
 export interface LengsteUke {
     week: string
@@ -58,7 +58,7 @@ export function splittTilAar(activities: SimpleActivity[], aktivitet: string): {
                 // Grupperer aktivitetene etter startdatoens uke.
                 const groupedActivities = groupBy(aktiviter, (activity) => {
                     const startDate = dayjs(activity.start_date)
-                    const week = startDate.week()
+                    const week = startDate.isoWeek()
                     return `${week}`
                 })
 
