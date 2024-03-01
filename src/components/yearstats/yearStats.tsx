@@ -144,10 +144,10 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                     {minutterPerKm && (
                         <>
                             <Typography variant="body1">
-                                {`Snitt moving speed: ${kmhToPace(averageSpeedKmPerHour)}`}
+                                {`Snitt moving pace: ${kmhToPace(averageSpeedKmPerHour)}`}
                             </Typography>
                             <Typography variant="body1">
-                                {`Snitt elapsed speed: ${kmhToPace(averageElapseSpeedKmPerHour)} `}
+                                {`Snitt elapsed pace: ${kmhToPace(averageElapseSpeedKmPerHour)} `}
                             </Typography>
                         </>
                     )}
