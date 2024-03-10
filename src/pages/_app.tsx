@@ -140,13 +140,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Strava stats</title>
+                <title>SesongSporet</title>
                 <link
                     rel="stylesheet"
                     href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
                     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
                     crossOrigin=""
                 />
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+                <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+                <link rel="manifest" href="/manifest.json" />
             </Head>
             <Theme>
                 <QueryClientProvider client={queryClient}>
