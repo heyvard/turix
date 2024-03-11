@@ -10,7 +10,7 @@ import StyledFirebaseAuth from '../auth/StyledFirebaseAuth'
 const uiConfig = {
     // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
     signInSuccessUrl: '/',
-    signInFlow: 'popup',
+    signInFlow: 'redirect',
     signInOptions: [GoogleAuthProvider.PROVIDER_ID, EmailAuthProvider.PROVIDER_ID],
 }
 
