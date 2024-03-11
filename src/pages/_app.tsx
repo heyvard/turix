@@ -140,7 +140,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>SesongSporet</title>
+                <title>Turix</title>
                 <link
                     rel="stylesheet"
                     href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -149,7 +149,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-                <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+                <link rel="apple-touch-icon" href="/logo-rund-180.png" />
                 <link rel="manifest" href="/manifest.json" />
             </Head>
             <Theme>
