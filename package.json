@@ -23,7 +23,7 @@
         "@mui/lab": "^5.0.0-alpha.146",
         "@mui/material": "^5.14.11",
         "@mui/x-date-pickers": "^5.0.19",
-        "@next/env": "^13.5.3",
+        "@next/env": "^14.1.4",
         "@turf/turf": "^6.5.0",
         "array-shuffle": "^3.0.0",
         "dayjs": "^1.11.10",
