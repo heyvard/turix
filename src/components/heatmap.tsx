@@ -28,8 +28,8 @@ const Heatmap = () => {
     const { data: activities } = UseActivities()
 
     const [aktiviteten, setAktiviteten] = React.useState(activity || 'NordicSki')
-    const [tomDato, setTomDato] = React.useState(dayjs((tom as string) || '2023-07-01'))
-    const [fomDato, setFomDato] = React.useState(dayjs((fom as string) || '2022-07-01'))
+    const [tomDato, setTomDato] = React.useState(dayjs((tom as string) || '2050-01-01'))
+    const [fomDato, setFomDato] = React.useState(dayjs((fom as string) || '2000-01-01'))
 
     if (!megselv || !activities) {
         return <Spinner></Spinner>
