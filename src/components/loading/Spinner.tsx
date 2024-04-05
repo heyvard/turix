@@ -1,9 +1,9 @@
-import { Spinner as SpinnerFb } from 'flowbite-react'
+import { Loader } from '@navikt/ds-react'
 
 export const Spinner = () => {
     return (
         <div className="flex justify-center items-center min-h-screen">
-            <SpinnerFb aria-label="Extra large spinner example" size="xl" />
+            <Loader size="3xlarge" title="Venter..." />
         </div>
     )
 }

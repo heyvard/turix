@@ -1,14 +1,17 @@
-/* tailwind.config.js */
-const path = require('path')
+/* eslint-disable @typescript-eslint/no-var-requires */
 
+const naviktTailwindPreset = require('@navikt/ds-tailwind')
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [
-        './node_modules/flowbite-react/**/*.js',
-        path.join(__dirname, './pages/**/*.{js,ts,jsx,tsx}'),
-        path.join(__dirname, './components/**/*.{js,ts,jsx,tsx}'),
-    ],
+    presets: [naviktTailwindPreset],
+    content: ['./src/**/*.{js,ts,jsx,tsx}'],
     theme: {
-        extend: {},
+        extend: {
+            spacing: {
+                '2xl': '42rem',
+            },
+        },
     },
-    plugins: [require('flowbite/plugin')],
+    plugins: [],
 }

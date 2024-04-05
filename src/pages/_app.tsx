@@ -18,7 +18,7 @@ import { SignInScreen } from '../components/SignIn'
 import { getFirebaseAuth } from '../auth/clientApp'
 import { erMock } from '../utils/erMock'
 
-import '../styles/globals.css'
+import '../styles/global.css'
 
 function UserFetchInnlogging(props: { children: React.ReactNode }) {
     const { data: me, isLoading } = UseUser()
