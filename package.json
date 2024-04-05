@@ -21,7 +21,6 @@
         "@navikt/ds-tokens": "^6.3.2",
         "@mapbox/polyline": "^1.2.1",
         "@mui/icons-material": "^5.15.15",
-        "@mui/lab": "^5.0.0-alpha.170",
         "@mui/material": "^5.15.15",
         "@next/env": "^14.1.4",
         "@turf/turf": "^6.5.0",
