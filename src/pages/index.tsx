@@ -22,12 +22,12 @@ const Home: NextPage = () => {
 
     const href = `http://www.strava.com/oauth/authorize?client_id=${clientId}&state=${megselv.id}&response_type=code&redirect_uri=${cbUrl}&approval_prompt=force&scope=activity:read`
     return (
-        <div className="container mx-auto mt-24 w-full">
+        <div className="container mx-auto mt-4 w-full">
             <div className="flex flex-col items-center w-full">
                 <Heading size="medium">Hei {megselv.name} 👋</Heading>
                 <Syncing />
                 {!megselv.athlete_id && <a href={href}>{connectWithStrva}</a>}
-                <div className="mt-16 w-full">
+                <div className="mt-2 w-full">
                     <YearStats />
                 </div>
             </div>

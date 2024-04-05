@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Container,
-    Link as MuiLink,
-    MenuItem,
-    Select,
-} from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Link as MuiLink, MenuItem } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Typography } from '@mui/material'
+import { Select } from '@navikt/ds-react'
 
 import { UseActivities } from '../../queries/useActivities'
 import { kmhToPace, meterTilKmVisning, nordicSkiEmoji } from '../../utils/distanceUtils'
@@ -44,26 +36,24 @@ export const YearStats = () => {
 
     return (
         <>
-            <Container maxWidth="md" sx={{ p: 0 }}>
-                <Select
-                    sx={{ mb: 2 }}
-                    value={aktivitet}
-                    label="Aktivitet"
-                    onChange={(e) => setAktivitet(e.target.value)}
-                >
-                    {aktiviteter.map((a) => {
-                        return (
-                            <MenuItem key={a} value={a}>
-                                {a}
-                            </MenuItem>
-                        )
-                    })}
-                </Select>
-                {aarene.aar.reverse().map((row, i) => (
-                    <Year key={i} row={row} aktivitet={aktivitet} />
-                ))}
-                {aarene.total && <Year row={aarene.total} aktivitet={aktivitet} />}
-            </Container>
+            <Select
+                className="m-2 md:w-2/5"
+                value={aktivitet}
+                label="Aktivitet"
+                onChange={(e) => setAktivitet(e.target.value)}
+            >
+                {aktiviteter.map((a) => {
+                    return (
+                        <option key={a} value={a}>
+                            {a}
+                        </option>
+                    )
+                })}
+            </Select>
+            {aarene.aar.reverse().map((row, i) => (
+                <Year key={i} row={row} aktivitet={aktivitet} />
+            ))}
+            {aarene.total && <Year row={aarene.total} aktivitet={aktivitet} />}
         </>
     )
 }
@@ -97,18 +87,6 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
                 <Box sx={{ px: 2, pb: 1 }}>
-                    {/*  <Link
-                        href={{
-                            pathname: 'heatmap',
-                            query: {
-                                activity: aktivitet,
-                                fom: row.start.format('YYYY-MM-DD'),
-                                tom: row.slutt.format('YYYY-MM-DD'),
-                            },
-                        }}
-                    >
-                        <MuiLink underline="none">Heatmap</MuiLink>
-                    </Link>*/}
                     <Typography variant="body1">{row.antall} aktiviter</Typography>
                     {row.lengsteTur && (
                         <Typography variant="body1">
