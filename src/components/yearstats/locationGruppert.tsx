@@ -1,8 +1,8 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 import polyline from '@mapbox/polyline'
 import { point, distance } from '@turf/turf'
+import { Accordion, BodyShort } from '@navikt/ds-react'
 
 import { SimpleActivity } from '../../types/db'
 import { meterTilKmVisning } from '../../utils/distanceUtils'
@@ -39,29 +39,30 @@ export const LocationGruppert = ({ aktiviteter }: { aktiviteter: SimpleActivity[
     const grupperte = groupActivitiesByLocation(aktiviteter)
     return (
         <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>Aktiviteter per område</Typography>
-            </AccordionSummary>
-            <AccordionDetails sx={{ p: 0 }}>
-                {Object.keys(grupperte).map((sted) => {
-                    const totalDistanse = grupperte[sted]
-                        .map((a) => a.distance)
-                        .reduce((partialSum, a) => partialSum + a, 0)
-                    return (
-                        <Accordion key={sted}>
-                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                <Box sx={{ justifyContent: 'space-between', display: 'flex', width: 1 }}>
-                                    <Typography>{sted}</Typography>
-                                    <Typography>{meterTilKmVisning(totalDistanse)}</Typography>
-                                </Box>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <AktivitetListeContent aktiviteter={grupperte[sted]} />
-                            </AccordionDetails>
-                        </Accordion>
-                    )
-                })}
-            </AccordionDetails>
+            <Accordion.Item>
+                <Accordion.Header>
+                    <Typography>Aktiviteter per område</Typography>
+                </Accordion.Header>
+                <Accordion.Content className="p-0">
+                    {Object.keys(grupperte).map((sted) => {
+                        const totalDistanse = grupperte[sted]
+                            .map((a) => a.distance)
+                            .reduce((partialSum, a) => partialSum + a, 0)
+                        return (
+                            <Accordion key={sted}>
+                                <Accordion.Item>
+                                    <Accordion.Header>
+                                        <BodyShort>{sted + ' ' + meterTilKmVisning(totalDistanse)}</BodyShort>
+                                    </Accordion.Header>
+                                    <Accordion.Content>
+                                        <AktivitetListeContent aktiviteter={grupperte[sted]} />
+                                    </Accordion.Content>
+                                </Accordion.Item>
+                            </Accordion>
+                        )
+                    })}
+                </Accordion.Content>
+            </Accordion.Item>
         </Accordion>
     )
 }
