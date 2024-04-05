@@ -14,7 +14,7 @@ const handler = async function handler(opts: ApiHandlerOpts<SimpleActivity[]>): 
         res.status(200).json(testdata)
         return
     }
-    const athleteId = req.query.athleteId || user.athlete_id
+    const athleteId = (req.query.athleteId || user.athlete_id) as string
     const activities = (
         await client.query(
             `

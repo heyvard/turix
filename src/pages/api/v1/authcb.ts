@@ -24,7 +24,7 @@ const handler = async function handler(req: NextApiRequest, res: NextApiResponse
                 athlete_id    = $5
             WHERE id = $1;
         `,
-        [userId, expires_at, refresh_token, access_token, athlete_id],
+        [userId, expires_at + '', refresh_token + '', access_token, athlete_id],
     )
     await client.release()
     res.redirect('/')

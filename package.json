@@ -15,29 +15,29 @@
         "format": "npm run prettier:write && npm run lint:fix"
     },
     "dependencies": {
-        "@date-io/dayjs": "^2.17.0",
-        "@emotion/react": "^11.11.1",
-        "@emotion/styled": "^11.11.0",
+        "@date-io/dayjs": "^3.0.0",
+        "@emotion/react": "^11.11.4",
+        "@emotion/styled": "^11.11.5",
         "@mapbox/polyline": "^1.2.1",
-        "@mui/icons-material": "^5.14.11",
-        "@mui/lab": "^5.0.0-alpha.146",
-        "@mui/material": "^5.14.11",
+        "@mui/icons-material": "^5.15.15",
+        "@mui/lab": "^5.0.0-alpha.170",
+        "@mui/material": "^5.15.15",
         "@mui/x-date-pickers": "^5.0.19",
-        "@next/env": "^13.5.3",
+        "@next/env": "^14.1.4",
         "@turf/turf": "^6.5.0",
         "array-shuffle": "^3.0.0",
         "dayjs": "^1.11.10",
-        "firebase": "^10.8.1",
+        "firebase": "^10.10.0",
         "firebaseui": "^6.1.0",
-        "flowbite": "^1.8.1",
-        "flowbite-react": "^0.6.3",
-        "jose": "^4.14.6",
+        "flowbite": "^2.3.0",
+        "flowbite-react": "^0.8.0",
+        "jose": "^5.2.3",
         "leaflet": "^1.9.4",
         "lodash": "^4.17.21",
         "mui-datatables": "^4.3.0",
-        "next": "13.5.3",
+        "next": "14.1.4",
         "node-fetch": "^3.3.2",
-        "pg": "^8.11.3",
+        "pg": "^8.11.5",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-firebase-hooks": "^5.1.1",
@@ -45,32 +45,29 @@
         "react-query": "^3.39.3"
     },
     "devDependencies": {
-        "@types/leaflet": "^1.9.6",
-        "@types/lodash": "^4.14.202",
-        "@types/mapbox__polyline": "^1.0.3",
-        "@types/mui-datatables": "^4.3.6",
-        "@types/node": "20.8.0",
-        "@types/pg": "^8.10.3",
-        "@types/react-dom": "18.2.8",
-        "@typescript-eslint/eslint-plugin": "^6.4.1",
-        "@typescript-eslint/parser": "^6.4.1",
-        "autoprefixer": "^10.4.16",
-        "eslint": "8.50.0",
-        "eslint-config-next": "13.5.3",
-        "eslint-config-prettier": "^9.0.0",
-        "eslint-plugin-import": "^2.28.1",
-        "eslint-plugin-prettier": "^5.0.0",
-        "eslint-plugin-react": "^7.33.2",
+        "@types/leaflet": "^1.9.9",
+        "@types/lodash": "^4.17.0",
+        "@types/mapbox__polyline": "^1.0.5",
+        "@types/mui-datatables": "^4.3.12",
+        "@types/node": "20.12.4",
+        "@types/pg": "^8.11.4",
+        "@types/react-dom": "18.2.24",
+        "autoprefixer": "^10.4.19",
+        "eslint": "8.57.0",
+        "eslint-config-next": "14.1.4",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-prettier": "^5.1.3",
+        "eslint-plugin-react": "^7.34.1",
         "eslint-plugin-react-hooks": "^4.6.0",
         "knex": "^2.5.1",
-        "postcss": "^8.4.31",
-        "prettier": "^3.0.3",
-        "tailwindcss": "^3.3.3",
-        "typescript": "5.2.2"
+        "postcss": "^8.4.38",
+        "prettier": "^3.2.5",
+        "tailwindcss": "^3.4.3",
+        "typescript": "5.4.4"
     },
     "eslintConfig": {
         "extends": [
-            "plugin:@typescript-eslint/recommended",
             "plugin:react/recommended",
             "prettier",
             "next/core-web-vitals"
@@ -83,7 +80,6 @@
         "rules": {
             "no-console": "off",
             "prettier/prettier": "warn",
-            "@typescript-eslint/no-explicit-any": "off",
             "import/order": [
                 "warn",
                 {
@@ -94,12 +90,6 @@
                 "warn",
                 {
                     "additionalHooks": "(useUpdateBreadcrumbs)"
-                }
-            ],
-            "@typescript-eslint/explicit-function-return-type": [
-                "off",
-                {
-                    "allowExpressions": true
                 }
             ],
             "react/jsx-curly-brace-presence": [

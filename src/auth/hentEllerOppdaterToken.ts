@@ -30,7 +30,7 @@ export async function hentEllerOppdaterToken(athleteId: string, client: PoolClie
                 access_token  = $4
             WHERE id = $1;
         `,
-        [brukeren.id, oppdatert.expires_at, oppdatert.refresh_token, oppdatert.access_token],
+        [brukeren.id, oppdatert.expires_at + '', oppdatert.refresh_token + '', oppdatert.access_token],
     )
 
     return (await hentBrukeren())!

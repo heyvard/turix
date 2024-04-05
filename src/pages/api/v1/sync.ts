@@ -60,7 +60,7 @@ const handler = async function handler(opts: ApiHandlerOpts<SyncResponse | strin
             SET page = $2
             WHERE id = $1;
         `,
-        [user.id, minPAge + 1],
+        [user.id, minPAge + 1 + ''],
     )
 
     res.status(200).json({

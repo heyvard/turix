@@ -47,7 +47,6 @@ const StyledFirebaseAuth = ({ uiConfig, className, uiCallback }: Props) => {
         if (uiCallback) uiCallback(firebaseUiWidget)
 
         // Render the firebaseUi Widget.
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         firebaseUiWidget.start(elementRef.current, uiConfig)
 

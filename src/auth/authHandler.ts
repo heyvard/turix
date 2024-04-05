@@ -68,7 +68,7 @@ export function auth(fn: { (_opts: ApiHandlerOpts): Promise<void> }) {
                 const dbkobling = Date.now()
 
                 const userList = await client.query('SELECT * from users where firebase_user_id = $1', [
-                    verifisert.payload.sub,
+                    verifisert.payload.sub!,
                 ])
 
                 const hentBrukeren = (): User | undefined => {
