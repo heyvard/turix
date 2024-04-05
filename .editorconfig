@@ -11,10 +11,17 @@ ij_typescript_spaces_within_brackets = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.json]
+[package.json]
 indent_style = space
 indent_size = 2
 
-[{*.yaml,*.yml}]
+
+[*.{scss,sass,less}]
 indent_style = space
+indent_size = 4
+
+[*.yaml]
+indent_size = 2
+
+[*.yml]
 indent_size = 2

@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
-import { Container } from '@mui/system'
-import { Box, Typography } from '@mui/material'
 import React from 'react'
+import { Heading } from '@navikt/ds-react'
 
 import { UseUser } from '../queries/useUser'
 import { Spinner } from '../components/loading/Spinner'
@@ -23,20 +22,16 @@ const Home: NextPage = () => {
 
     const href = `http://www.strava.com/oauth/authorize?client_id=${clientId}&state=${megselv.id}&response_type=code&redirect_uri=${cbUrl}&approval_prompt=force&scope=activity:read`
     return (
-        <>
-            <Container maxWidth="md" sx={{ mt: 6, width: 1 }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 1 }}>
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        Hei {megselv.name} 👋
-                    </Typography>
-                    <Syncing />
-                    {!megselv.athlete_id && <a href={href}>{connectWithStrva}</a>}
-                    <Box sx={{ mt: 4, width: 1 }}>
-                        <YearStats />
-                    </Box>
-                </Box>
-            </Container>
-        </>
+        <div className="container mx-auto mt-24 w-full">
+            <div className="flex flex-col items-center w-full">
+                <Heading size="medium">Hei {megselv.name} 👋</Heading>
+                <Syncing />
+                {!megselv.athlete_id && <a href={href}>{connectWithStrva}</a>}
+                <div className="mt-16 w-full">
+                    <YearStats />
+                </div>
+            </div>
+        </div>
     )
 }
 
