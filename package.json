@@ -25,7 +25,6 @@
         "@mui/material": "^5.15.15",
         "@next/env": "^14.1.4",
         "@turf/turf": "^6.5.0",
-        "array-shuffle": "^3.0.0",
         "dayjs": "^1.11.10",
         "firebase": "^10.10.0",
         "firebaseui": "^6.1.0",
