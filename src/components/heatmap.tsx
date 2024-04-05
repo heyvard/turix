@@ -3,12 +3,8 @@ import React from 'react'
 import { MapContainer, Polyline, Popup, TileLayer } from 'react-leaflet'
 import { LatLng } from 'leaflet'
 import polyline from '@mapbox/polyline'
-import Accordion from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { MenuItem, Select, Link as MuiLink, TextField } from '@mui/material'
+import { Link as MuiLink, MenuItem, Select } from '@mui/material'
 
 import { UseActivities } from '../queries/useActivities'
 import { UseUser } from '../queries/useUser'
@@ -45,7 +41,6 @@ const Heatmap = () => {
             }
         })
 
-    const tittel = `${aktiviteten}}`
     return (
         <>
             <Select
