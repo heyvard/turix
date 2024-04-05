@@ -4,7 +4,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import HomeIcon from '@mui/icons-material/Home'
 import MapIcon from '@mui/icons-material/Map'
 import { BottomNavigation, BottomNavigationAction, Box, CircularProgress, Menu, MenuItem, Paper } from '@mui/material'
-import React, { SyntheticEvent, useState } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { Person } from '@mui/icons-material'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useRouter } from 'next/router'
@@ -136,6 +136,14 @@ function MyApp({ Component, pageProps }: AppProps) {
                 },
             }),
     )
+
+    useEffect(() => {
+        // Venter til siden er fullstendig lastet
+        // Utfører en liten scroll etter et kort tidsrom
+        setTimeout(() => {
+            window.scrollTo(0, 1)
+        }, 1000)
+    }, [])
 
     return (
         <>
