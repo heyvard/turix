@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 import { Activity } from '../types/strava'
 
 interface Opts {

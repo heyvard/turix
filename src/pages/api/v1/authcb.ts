@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import fetch from 'node-fetch'
 
 import { getPool } from '../../../auth/authHandler'
 import { Token } from '../../../types/strava'

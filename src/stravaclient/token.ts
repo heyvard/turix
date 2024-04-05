@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 import { Token } from '../types/strava'
 
 export async function hentToken(refreshToken: string): Promise<Token> {
