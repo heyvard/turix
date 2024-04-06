@@ -1,15 +1,8 @@
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Link as MuiLink,
-    MenuItem,
-    Select,
-    Typography,
-} from '@mui/material'
+import { Link as MuiLink, MenuItem, Select, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import dayjs from 'dayjs'
 import React from 'react'
+import { Accordion } from '@navikt/ds-react'
 
 import { meterTilKmVisning } from '../../utils/distanceUtils'
 import { SimpleActivity } from '../../types/db'
@@ -70,13 +63,13 @@ export const AktivitetListeContent = ({ aktiviteter }: { aktiviteter: SimpleActi
 
 export const AktivitetListe = ({ aktiviteter }: { aktiviteter: SimpleActivity[] }) => {
     return (
-        <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Accordion.Item>
+            <Accordion.Header>
                 <Typography>Aktiviteter</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
+            </Accordion.Header>
+            <Accordion.Content>
                 <AktivitetListeContent aktiviteter={aktiviteter} />
-            </AccordionDetails>
-        </Accordion>
+            </Accordion.Content>
+        </Accordion.Item>
     )
 }

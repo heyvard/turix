@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Link as MuiLink, MenuItem } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Typography } from '@mui/material'
-import { Select } from '@navikt/ds-react'
+import { Box, Link as MuiLink } from '@mui/material'
+import { Accordion, BodyShort, Select } from '@navikt/ds-react'
 
 import { UseActivities } from '../../queries/useActivities'
 import { kmhToPace, meterTilKmVisning, nordicSkiEmoji } from '../../utils/distanceUtils'
@@ -30,7 +28,7 @@ export const YearStats = () => {
         return null
     }
     if (activities.length == 0) {
-        return <Typography>Har ikke hentet noen aktiviteter enda</Typography>
+        return <BodyShort>Har ikke hentet noen aktiviteter enda</BodyShort>
     }
     const aarene = splittTilAar(activities, aktivitet)
 
@@ -50,10 +48,12 @@ export const YearStats = () => {
                     )
                 })}
             </Select>
-            {aarene.aar.reverse().map((row, i) => (
-                <Year key={i} row={row} aktivitet={aktivitet} />
-            ))}
-            {aarene.total && <Year row={aarene.total} aktivitet={aktivitet} />}
+            <Accordion>
+                {aarene.aar.reverse().map((row, i) => (
+                    <Year key={i} row={row} aktivitet={aktivitet} />
+                ))}
+                {aarene.total && <Year row={aarene.total} aktivitet={aktivitet} />}
+            </Accordion>
         </>
     )
 }
@@ -71,25 +71,24 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
 
     const minutterPerKm = ['NordicSki', 'Run'].includes(aktivitet)
     return (
-        <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Box sx={{ justifyContent: 'space-between', display: 'flex', width: 1 }}>
-                    <Typography>{tittel()}</Typography>
-                    <Typography>
-                        {' '}
+        <Accordion.Item>
+            <Accordion.Header>
+                <div className="flex justify-between w-full">
+                    <BodyShort>{tittel()}</BodyShort>
+                    <BodyShort>
                         {aktivitet.includes('NordicSki') && !row.total && nordicSkiEmoji(row.distance)}
-                    </Typography>
-                    <Typography>
+                    </BodyShort>
+                    <BodyShort>
                         {aktivitet != 'WeightTraining' && meterTilKmVisning(row.distance)}
                         {aktivitet == 'WeightTraining' && `${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
-                    </Typography>
-                </Box>
-            </AccordionSummary>
-            <AccordionDetails sx={{ p: 0 }}>
+                    </BodyShort>
+                </div>
+            </Accordion.Header>
+            <Accordion.Content className="p-0">
                 <Box sx={{ px: 2, pb: 1 }}>
-                    <Typography variant="body1">{row.antall} aktiviter</Typography>
+                    <BodyShort>{row.antall} aktiviter</BodyShort>
                     {row.lengsteTur && (
-                        <Typography variant="body1">
+                        <BodyShort>
                             {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(row.lengsteTur.distance)})`}
 
                             <MuiLink
@@ -100,33 +99,23 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                             >
                                 View on Strava
                             </MuiLink>
-                        </Typography>
+                        </BodyShort>
                     )}
 
-                    <Typography variant="body1">
-                        {`Total tid: ${row.elapsedTime.valueOf() / BigInt(3600)} timer`}
-                    </Typography>
-                    <Typography variant="body1">
-                        {`Total effektiv tid: ${row.movingTime.valueOf() / BigInt(3600)} timer`}
-                    </Typography>
+                    <BodyShort>{`Total tid: ${row.elapsedTime.valueOf() / BigInt(3600)} timer`}</BodyShort>
+                    <BodyShort>{`Total effektiv tid: ${row.movingTime.valueOf() / BigInt(3600)} timer`}</BodyShort>
                     {!minutterPerKm && (
                         <>
-                            <Typography variant="body1">
-                                {`Snitt moving speed: ${averageSpeedKmPerHour.toFixed(2)} km/t`}
-                            </Typography>
-                            <Typography variant="body1">
+                            <BodyShort>{`Snitt moving speed: ${averageSpeedKmPerHour.toFixed(2)} km/t`}</BodyShort>
+                            <BodyShort>
                                 {`Snitt elapsed speed: ${averageElapseSpeedKmPerHour.toFixed(2)} km/t`}
-                            </Typography>
+                            </BodyShort>
                         </>
                     )}
                     {minutterPerKm && (
                         <>
-                            <Typography variant="body1">
-                                {`Snitt moving pace: ${kmhToPace(averageSpeedKmPerHour)}`}
-                            </Typography>
-                            <Typography variant="body1">
-                                {`Snitt elapsed pace: ${kmhToPace(averageElapseSpeedKmPerHour)} `}
-                            </Typography>
+                            <BodyShort>{`Snitt moving pace: ${kmhToPace(averageSpeedKmPerHour)}`}</BodyShort>
+                            <BodyShort>{`Snitt elapsed pace: ${kmhToPace(averageElapseSpeedKmPerHour)} `}</BodyShort>
                         </>
                     )}
                 </Box>
@@ -134,17 +123,17 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                 <LocationGruppert aktiviteter={row.aktiviteter} />
                 {row.lengsteUke && (
                     <Accordion>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Accordion.Header>
                             {`Lengste uke: Ukenummer ${row.lengsteUke.week} (${meterTilKmVisning(
                                 row.lengsteUke.totalDistance,
                             )})`}
-                        </AccordionSummary>
-                        <AccordionDetails>
+                        </Accordion.Header>
+                        <Accordion.Content>
                             <AktivitetListeContent aktiviteter={row.lengsteUke.activities} />
-                        </AccordionDetails>
+                        </Accordion.Content>
                     </Accordion>
                 )}
-            </AccordionDetails>
-        </Accordion>
+            </Accordion.Content>
+        </Accordion.Item>
     )
 }

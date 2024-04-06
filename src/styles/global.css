@@ -9,3 +9,7 @@
         @apply list-inside;
     }
 }
+
+.navds-accordion__header-content {
+    width: 100%;
+}
