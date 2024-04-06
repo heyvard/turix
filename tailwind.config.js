@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const naviktTailwindPreset = require('@navikt/ds-tailwind')
 
 /** @type {import('tailwindcss').Config} */
@@ -10,6 +8,9 @@ module.exports = {
         extend: {
             spacing: {
                 '2xl': '42rem',
+            },
+            colors: {
+                strava: '#FC4C02',
             },
         },
     },

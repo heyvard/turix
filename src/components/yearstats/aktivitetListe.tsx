@@ -1,5 +1,4 @@
 import { Link as MuiLink, MenuItem, Select, Typography } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import dayjs from 'dayjs'
 import React from 'react'
 import { Accordion } from '@navikt/ds-react'

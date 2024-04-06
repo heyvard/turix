@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Link as MuiLink } from '@mui/material'
-import { Accordion, BodyShort, Select } from '@navikt/ds-react'
+import { Accordion, BodyShort, Link, Select } from '@navikt/ds-react'
 
 import { UseActivities } from '../../queries/useActivities'
 import { kmhToPace, meterTilKmVisning, nordicSkiEmoji } from '../../utils/distanceUtils'
@@ -85,20 +84,20 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                 </div>
             </Accordion.Header>
             <Accordion.Content className="p-0">
-                <Box sx={{ px: 2, pb: 1 }}>
+                <div className="px-4 pb-2">
                     <BodyShort>{row.antall} aktiviter</BodyShort>
                     {row.lengsteTur && (
                         <BodyShort>
                             {`Lengste tur: ${row.lengsteTur.name} (${meterTilKmVisning(row.lengsteTur.distance)})`}
 
-                            <MuiLink
+                            <Link
                                 target="_blank"
-                                underline="none"
-                                style={{ color: '#FC4C02', fontSize: '14px', display: 'block', marginBottom: '5px' }}
+                                underline={false}
+                                className="text-strava block mb-2 text-sm"
                                 href={'https://www.strava.com/activities/' + row.lengsteTur.activity_id}
                             >
                                 View on Strava
-                            </MuiLink>
+                            </Link>
                         </BodyShort>
                     )}
 
@@ -118,20 +117,22 @@ const Year = ({ row, aktivitet }: { row: Aar; aktivitet: string }) => {
                             <BodyShort>{`Snitt elapsed pace: ${kmhToPace(averageElapseSpeedKmPerHour)} `}</BodyShort>
                         </>
                     )}
-                </Box>
+                </div>
                 <AktivitetListe aktiviteter={row.aktiviteter} />
                 <LocationGruppert aktiviteter={row.aktiviteter} />
                 {row.lengsteUke && (
-                    <Accordion>
+                    <Accordion.Item>
                         <Accordion.Header>
-                            {`Lengste uke: Ukenummer ${row.lengsteUke.week} (${meterTilKmVisning(
-                                row.lengsteUke.totalDistance,
-                            )})`}
+                            <BodyShort>
+                                {`Lengste uke: Ukenummer ${row.lengsteUke.week} (${meterTilKmVisning(
+                                    row.lengsteUke.totalDistance,
+                                )})`}
+                            </BodyShort>
                         </Accordion.Header>
                         <Accordion.Content>
                             <AktivitetListeContent aktiviteter={row.lengsteUke.activities} />
                         </Accordion.Content>
-                    </Accordion>
+                    </Accordion.Item>
                 )}
             </Accordion.Content>
         </Accordion.Item>
