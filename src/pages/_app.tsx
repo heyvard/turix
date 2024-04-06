@@ -8,7 +8,6 @@ import { Loader } from '@navikt/ds-react'
 
 import { Spinner } from '../components/loading/Spinner'
 import { UseUser } from '../queries/useUser'
-import { Theme } from '../components/theme/Theme'
 import { SignInScreen } from '../components/SignIn'
 import { getFirebaseAuth } from '../auth/clientApp'
 import { erMock } from '../utils/erMock'
@@ -206,13 +205,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <link rel="apple-touch-icon" href="/logo-rund-180.png" />
                 <link rel="manifest" href="/manifest.json" />
             </Head>
-            <Theme>
-                <QueryClientProvider client={queryClient}>
-                    <UserInnlogging>
-                        <Component {...pageProps} />
-                    </UserInnlogging>
-                </QueryClientProvider>
-            </Theme>
+            <QueryClientProvider client={queryClient}>
+                <UserInnlogging>
+                    <Component {...pageProps} />
+                </UserInnlogging>
+            </QueryClientProvider>
         </>
     )
 }

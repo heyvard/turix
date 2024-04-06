@@ -1,15 +1,17 @@
 import type { NextPage } from 'next'
-import { Container, Grid, Link as MuiLink } from '@mui/material'
 import React from 'react'
-import MUIDataTable from 'mui-datatables'
-import dayjs from 'dayjs'
-
-import { UseUser } from '../queries/useUser'
-import { Spinner } from '../components/loading/Spinner'
-import { UseActivities } from '../queries/useActivities'
-import { meterTilKmVisning } from '../utils/distanceUtils'
+import { Alert } from '@navikt/ds-react'
 
 const Tabell: NextPage = () => {
+    return (
+        <div className="container mx-auto mt-10">
+            <Alert variant="info" title="Under utvikling">
+                Denne siden er under utvikling
+            </Alert>
+        </div>
+    )
+
+    /*
     const { data: megselv } = UseUser()
     const { data: activities } = UseActivities()
 
@@ -70,6 +72,7 @@ const Tabell: NextPage = () => {
             </Container>
         </>
     )
+    */
 }
 
 export default Tabell
