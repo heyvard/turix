@@ -3,8 +3,7 @@ import React from 'react'
 import { MapContainer, Polyline, Popup, TileLayer } from 'react-leaflet'
 import { LatLng } from 'leaflet'
 import polyline from '@mapbox/polyline'
-import Typography from '@mui/material/Typography'
-import { Link as MuiLink, MenuItem, Select } from '@mui/material'
+import { BodyShort, Link, Select } from '@navikt/ds-react'
 
 import { UseActivities } from '../queries/useActivities'
 import { UseUser } from '../queries/useUser'
@@ -44,16 +43,16 @@ const Heatmap = () => {
     return (
         <>
             <Select
-                sx={{ mt: 2, ml: 2, mb: 2 }}
+                className="p-2 md:w-2/5"
                 value={aktiviteten}
                 label="Aktivitet"
                 onChange={(e) => setAktiviteten(e.target.value)}
             >
                 {aktiviteter.map((a) => {
                     return (
-                        <MenuItem key={a} value={a}>
+                        <option key={a} value={a}>
                             {a}
-                        </MenuItem>
+                        </option>
                     )
                 })}
             </Select>
@@ -74,16 +73,14 @@ const Heatmap = () => {
                             positions={activity.activityPositions}
                         >
                             <Popup>
-                                <MuiLink
+                                <Link
                                     target="_blank"
-                                    underline="none"
+                                    underline={false}
                                     href={`https://www.strava.com/activities/${activity.id}`}
                                 >
                                     {activity.activityName}
-                                </MuiLink>
-                                <Typography variant="body2" style={{ margin: 0 }}>
-                                    {meterTilKmVisning(activity.distance)}
-                                </Typography>
+                                </Link>
+                                <BodyShort>{meterTilKmVisning(activity.distance)}</BodyShort>
                             </Popup>
                         </Polyline>
                     ))}

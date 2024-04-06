@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material'
 import React from 'react'
 import polyline from '@mapbox/polyline'
 import { point, distance } from '@turf/turf'
@@ -41,7 +40,7 @@ export const LocationGruppert = ({ aktiviteter }: { aktiviteter: SimpleActivity[
         <Accordion>
             <Accordion.Item>
                 <Accordion.Header>
-                    <Typography>Aktiviteter per område</Typography>
+                    <BodyShort>Aktiviteter per område</BodyShort>
                 </Accordion.Header>
                 <Accordion.Content className="p-0">
                     {Object.keys(grupperte).map((sted) => {
