@@ -1,7 +1,6 @@
-import { Link as MuiLink, MenuItem, Select, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React from 'react'
-import { Accordion } from '@navikt/ds-react'
+import { Accordion, BodyShort, Link, Select } from '@navikt/ds-react'
 
 import { meterTilKmVisning } from '../../utils/distanceUtils'
 import { SimpleActivity } from '../../types/db'
@@ -27,33 +26,28 @@ export const AktivitetListeContent = ({ aktiviteter }: { aktiviteter: SimpleActi
     }
     return (
         <>
-            <Select
-                sx={{ mb: 2, height: '2rem' }}
-                value={sortering}
-                label="Sortering"
-                onChange={(e) => setSortering(e.target.value as any)}
-            >
-                <MenuItem value="Distanse">Distanse</MenuItem>
-                <MenuItem value="Tid">Tid</MenuItem>
-                <MenuItem value="Dato">Dato</MenuItem>
+            <Select value={sortering} label="Sortering" onChange={(e) => setSortering(e.target.value as any)}>
+                <option value="Distanse">Distanse</option>
+                <option value="Tid">Tid</option>
+                <option value="Dato">Dato</option>
             </Select>
 
             {aktivitetene().map((a, i) => {
                 return (
-                    <Typography key={i} variant="body1">
+                    <BodyShort key={i}>
                         {`${dayjs(a.start_date).format('DD.MM.YYYY')} ${a.name} (${meterTilKmVisning(a.distance)})`}
 
                         <div style={{ marginBottom: '10px' }}>
-                            <MuiLink
+                            <Link
                                 target="_blank"
-                                underline="none"
-                                style={{ color: '#FC4C02', fontSize: '14px' }}
+                                underline={false}
+                                className="text-strava block mb-2 text-sm"
                                 href={'https://www.strava.com/activities/' + a.activity_id}
                             >
                                 View on Strava
-                            </MuiLink>
+                            </Link>
                         </div>
-                    </Typography>
+                    </BodyShort>
                 )
             })}
         </>
@@ -64,7 +58,7 @@ export const AktivitetListe = ({ aktiviteter }: { aktiviteter: SimpleActivity[] 
     return (
         <Accordion.Item>
             <Accordion.Header>
-                <Typography>Aktiviteter</Typography>
+                <BodyShort>Aktiviteter</BodyShort>
             </Accordion.Header>
             <Accordion.Content>
                 <AktivitetListeContent aktiviteter={aktiviteter} />
