@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@mapbox/polyline": "^1.2.1",
-        "@navikt/ds-css": "^6.3.6",
+        "@navikt/ds-css": "^6.5.0",
         "@navikt/ds-react": "^6.3.6",
         "@navikt/ds-tailwind": "^6.3.6",
         "@navikt/ds-tokens": "^6.3.2",
