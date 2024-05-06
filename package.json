@@ -19,7 +19,7 @@
         "@navikt/ds-css": "^6.3.6",
         "@navikt/ds-react": "^6.3.6",
         "@navikt/ds-tailwind": "^6.3.6",
-        "@navikt/ds-tokens": "^6.3.2",
+        "@navikt/ds-tokens": "^6.7.0",
         "@next/env": "^14.1.4",
         "@turf/turf": "^6.5.0",
         "dayjs": "^1.11.10",
