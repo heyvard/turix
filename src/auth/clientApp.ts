@@ -1,7 +1,6 @@
 import { FirebaseApp, initializeApp } from 'firebase/app'
-import 'firebase/auth'
+import { Auth, getAuth } from 'firebase/auth'
 import 'firebase/firestore'
-import { Auth, getAuth } from '@firebase/auth'
 
 const clientCredentials = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
