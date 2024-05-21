@@ -25,7 +25,7 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
         return <Spinner />
     }
 
-    const InternalHeaderButton: FC<{
+    const FooterKnapp: FC<{
         icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement> & React.RefAttributes<SVGSVGElement>>
         text: string
         url: string
@@ -51,9 +51,9 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
             {props.children}
             <InternalHeader className="fixed bottom-0 left-0 z-50 w-full h-16 flex justify-center">
                 <div className="flex w-full max-w-md justify-between">
-                    <InternalHeaderButton icon={HouseIcon} text="Hjem" url="/" borderRight={false} />
-                    <InternalHeaderButton icon={EarthIcon} text="Heatmap" url="/heatmap" borderRight={false} />
-                    <InternalHeaderButton icon={BulletListIcon} text="Aktiviteter" url="/tabell" borderRight={true} />
+                    <FooterKnapp icon={HouseIcon} text="Hjem" url="/" borderRight={false} />
+                    <FooterKnapp icon={EarthIcon} text="Heatmap" url="/heatmap" borderRight={false} />
+                    <FooterKnapp icon={BulletListIcon} text="Aktiviteter" url="/tabell" borderRight={true} />
                 </div>
             </InternalHeader>
         </>
