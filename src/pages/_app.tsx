@@ -19,8 +19,6 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
     const { data: me, isLoading } = UseUser()
     const [user] = useAuthState(getFirebaseAuth())
 
-    const router = useRouter()
-
     if (isLoading || !user || !me) {
         return <Spinner />
     }
