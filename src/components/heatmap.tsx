@@ -42,21 +42,23 @@ const Heatmap = () => {
 
     return (
         <>
-            <Select
-                className="p-2 md:w-2/5"
-                value={aktiviteten}
-                label="Aktivitet"
-                onChange={(e) => setAktiviteten(e.target.value)}
-            >
-                {aktiviteter.map((a) => {
-                    return (
-                        <option key={a} value={a}>
-                            {a}
-                        </option>
-                    )
-                })}
-            </Select>
-            <div style={{ height: '80vh' }}>
+            <div className="flex">
+                <Select
+                    className="p-2 md:w-2/5"
+                    value={aktiviteten}
+                    label="Aktivitet"
+                    onChange={(e) => setAktiviteten(e.target.value)}
+                >
+                    {aktiviteter.map((a) => {
+                        return (
+                            <option key={a} value={a}>
+                                {a}
+                            </option>
+                        )
+                    })}
+                </Select>
+            </div>
+            <div style={{ height: '74vh' }}>
                 <MapContainer center={position} zoom={10} style={{ height: '100%' }}>
                     <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
