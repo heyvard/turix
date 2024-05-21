@@ -1,10 +1,10 @@
 import type { AppProps } from 'next/app'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import React, { SyntheticEvent, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { Dropdown, InternalHeader, Loader } from '@navikt/ds-react'
+import { InternalHeader, Loader } from '@navikt/ds-react'
 import { BulletListIcon, EarthIcon, HouseIcon } from '@navikt/aksel-icons'
 
 import { Spinner } from '../components/loading/Spinner'
@@ -21,35 +21,40 @@ function UserFetchInnlogging(props: { children: React.ReactNode }) {
 
     const router = useRouter()
 
-    const [anchorEl, setAnchorEl] = useState<null | Element>(null)
-
-    const handleMenu = (event: SyntheticEvent<Element, Event>) => {
-        setAnchorEl(event.currentTarget)
-    }
-
-    const handleClose = () => {
-        setAnchorEl(null)
-    }
     if (isLoading || !user || !me) {
         return <Spinner />
+    }
+
+    const InternalHeaderButton: FC<{
+        icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement> & React.RefAttributes<SVGSVGElement>>
+        text: string
+        url: string
+        borderRight?: boolean
+    }> = ({ icon: Icon, text, url, borderRight }) => {
+        const router = useRouter()
+        const isActive = router.pathname === url
+
+        return (
+            <InternalHeader.Button
+                className={`flex flex-col items-center w-full p-2 ${borderRight ? 'border-r' : ''} ${isActive ? 'bg-gray-600 text-white' : ''}`}
+                type="button"
+                onClick={() => router.push(url)}
+            >
+                <Icon className="w-8 h-8" />
+                <span className="text-sm">{text}</span>
+            </InternalHeader.Button>
+        )
     }
 
     return (
         <>
             {props.children}
             <InternalHeader className="fixed bottom-0 left-0 z-50 w-full h-16 flex justify-center">
-                <InternalHeader.Button defaultChecked={true} type="button" onClick={() => router.push('/')}>
-                    <HouseIcon />
-                    Hjem
-                </InternalHeader.Button>
-                <InternalHeader.Button type="button" onClick={() => router.push('/heatmap')}>
-                    <EarthIcon />
-                    Heatmap
-                </InternalHeader.Button>
-                <InternalHeader.Button type="button" onClick={() => router.push('/tabell')}>
-                    <BulletListIcon />
-                    Aktiviteter
-                </InternalHeader.Button>
+                <div className="flex w-full max-w-md justify-between">
+                    <InternalHeaderButton icon={HouseIcon} text="Hjem" url="/" borderRight={false} />
+                    <InternalHeaderButton icon={EarthIcon} text="Heatmap" url="/heatmap" borderRight={false} />
+                    <InternalHeaderButton icon={BulletListIcon} text="Aktiviteter" url="/tabell" borderRight={true} />
+                </div>
             </InternalHeader>
         </>
     )
